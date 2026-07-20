@@ -516,6 +516,104 @@ function richField(label, path) {
   return wrap;
 }
 
+const HERO_PRESETS = [
+  { label: 'Theme colors', value: '' },
+  { label: 'Aerial diamond', value: '/images/heroes/aerial-diamond.jpg' },
+  { label: 'Stadium sunset', value: '/images/heroes/stadium-sunset.jpg' },
+  { label: 'Blue sky stadium', value: '/images/heroes/blue-sky-stadium.jpg' },
+  { label: 'Stadium at night', value: '/images/heroes/stadium-night.jpg' },
+  { label: 'Local field', value: '/images/heroes/local-field.jpg' },
+  { label: 'Home plate', value: '/images/heroes/home-plate.jpg' },
+  { label: 'Infield play', value: '/images/heroes/infield-play.jpg' },
+  { label: 'Baseball on dirt', value: '/images/heroes/baseball-dirt.jpg' },
+  { label: 'Outfield grass', value: '/images/heroes/outfield-grass.jpg' },
+];
+
+function heroBackgroundField(path) {
+  const wrap = document.createElement('div');
+  wrap.className = 'field';
+  const lbl = document.createElement('label');
+  lbl.textContent = 'Top banner background';
+  wrap.appendChild(lbl);
+
+  const hint = document.createElement('div');
+  hint.style.cssText = 'font-size:11px;opacity:0.6;margin-bottom:8px;';
+  hint.textContent = 'Tap a picture to use it — or upload your own at the bottom.';
+  wrap.appendChild(hint);
+
+  const current = getVal(path) || '';
+  const isCustom = current && !HERO_PRESETS.some(p => p.value === current);
+
+  const grid = document.createElement('div');
+  grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;';
+
+  HERO_PRESETS.forEach(preset => {
+    const tile = document.createElement('button');
+    tile.type = 'button';
+    const selected = current === preset.value;
+    tile.style.cssText = `
+      position:relative;padding:0;border:2px solid ${selected ? '#d7263d' : 'rgba(255,255,255,0.15)'};
+      background:${preset.value ? '#000' : 'linear-gradient(135deg,#0f2a44 0%,#0a1d30 100%)'};
+      border-radius:4px;cursor:pointer;overflow:hidden;aspect-ratio:16/10;
+    `;
+    if (preset.value) {
+      const img = document.createElement('img');
+      img.src = preset.value;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+      tile.appendChild(img);
+    }
+    const cap = document.createElement('div');
+    cap.textContent = preset.label;
+    cap.style.cssText = `
+      position:absolute;left:0;right:0;bottom:0;padding:2px 4px;
+      font-size:9px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
+      color:#fff;background:rgba(0,0,0,0.55);text-align:center;line-height:1.2;
+    `;
+    tile.appendChild(cap);
+    if (selected) {
+      const check = document.createElement('div');
+      check.textContent = '✓';
+      check.style.cssText = 'position:absolute;top:2px;right:4px;color:#fff;font-weight:900;font-size:14px;text-shadow:0 1px 2px rgba(0,0,0,0.8);';
+      tile.appendChild(check);
+    }
+    tile.addEventListener('click', () => { set(path, preset.value); render(); });
+    grid.appendChild(tile);
+  });
+  wrap.appendChild(grid);
+
+  const uploadLbl = document.createElement('div');
+  uploadLbl.style.cssText = 'font-size:11px;letter-spacing:0.08em;text-transform:uppercase;font-weight:700;opacity:0.7;margin-bottom:4px;';
+  uploadLbl.textContent = 'Or upload your own';
+  wrap.appendChild(uploadLbl);
+
+  if (isCustom) {
+    const preview = document.createElement('img');
+    preview.src = current;
+    preview.style.cssText = 'max-width:100%;max-height:80px;margin-bottom:4px;border-radius:4px;display:block;';
+    wrap.appendChild(preview);
+    const clr = document.createElement('button');
+    clr.type = 'button';
+    clr.textContent = 'Remove upload';
+    clr.style.cssText = 'font-size:11px;background:transparent;border:1px solid rgba(255,255,255,0.2);color:inherit;padding:4px 8px;border-radius:3px;cursor:pointer;margin-bottom:6px;';
+    clr.addEventListener('click', () => { set(path, ''); render(); });
+    wrap.appendChild(clr);
+  }
+
+  const inp = document.createElement('input');
+  inp.type = 'file';
+  inp.accept = 'image/*';
+  inp.addEventListener('change', e => {
+    const f = e.target.files[0];
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onload = () => { set(path, reader.result); render(); };
+    reader.readAsDataURL(f);
+  });
+  wrap.appendChild(inp);
+
+  return wrap;
+}
+
 function imageField(label, path) {
   const wrap = document.createElement('div');
   wrap.className = 'field';
@@ -704,7 +802,7 @@ function renderEditor() {
   heroSec.body.appendChild(richField('Subtext', 'hero.subtext'));
   heroSec.body.appendChild(textField('Main button', 'hero.button_primary'));
   heroSec.body.appendChild(textField('Second button', 'hero.button_secondary'));
-  heroSec.body.appendChild(imageField('Background photo', 'hero.background_image'));
+  heroSec.body.appendChild(heroBackgroundField('hero.background_image'));
   const heroRow = document.createElement('div'); heroRow.className = 'row2';
   heroRow.appendChild(selectField('Alignment', 'hero.alignment', ALIGN));
   heroRow.appendChild(selectField('Spacing', 'hero.spacing', SPACING));
