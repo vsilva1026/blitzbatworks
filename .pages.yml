@@ -9,6 +9,8 @@ content:
     path: content/site.json
     type: file
     format: json
+    view:
+      preview: https://blitzbatworks-cms.victor-silva-1.workers.dev
     fields:
       - name: theme
         label: Color Theme
