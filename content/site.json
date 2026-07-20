@@ -1,10 +1,10 @@
 {
   "theme": "navy-red",
   "hero": {
-    "kicker": "Hand-Taped \u00b7 Made to Order",
+    "kicker": "Hand-Taped · Made to Order",
     "headline_top": "Custom Blitz Bats For",
     "headline_bottom": "Backyard Legends.",
-    "subtext": "<p>One-of-a-kind Blitz bats, wrapped and taped by hand. Pick your colors, pick your style \u2014 every bat is built to your specs.</p>",
+    "subtext": "<p>One-of-a-kind Blitz bats, wrapped and taped by hand. Pick your colors, pick your style — every bat is built to your specs.</p>",
     "button_primary": "Order Yours",
     "button_secondary": "Our Story",
     "background_image": "",
@@ -25,9 +25,6 @@
       "section": "gallery"
     },
     {
-      "section": "testimonials"
-    },
-    {
       "section": "contact"
     }
   ],
@@ -37,9 +34,9 @@
     "background": "light",
     "alignment": "left",
     "heading": "Built in the Backyard.",
-    "body": "<p>Blitz Bat Works started the way every great backyard idea does \u2014 with a beat-up wiffle bat, a roll of tape, and a summer afternoon.</p><p>What began as customizing bats for pickup games turned into something more: bats built to order, each one wrapped and finished by hand. No two are the same. Every bat gets its own color scheme, its own grip, its own personality.</p><p>Whether you're squaring up for a home run derby, a family cookout tournament, or you just want a bat that actually looks like <em>yours</em> \u2014 we've got you covered.</p>",
+    "body": "<p>Blitz Bat Works started the way every great backyard idea does — with a beat-up wiffle bat, a roll of tape, and a summer afternoon.</p><p>What began as customizing bats for pickup games turned into something more: bats built to order, each one wrapped and finished by hand. No two are the same. Every bat gets its own color scheme, its own grip, its own personality.</p><p>Whether you're squaring up for a home run derby, a family cookout tournament, or you just want a bat that actually looks like <em>yours</em> — we've got you covered.</p>",
     "card_heading": "What Makes Us Different",
-    "card_text": "Every bat is hand-taped from start to finish. You pick the colors, patterns, and grip style \u2014 we build it. No mass production, no cookie-cutter designs.",
+    "card_text": "Every bat is hand-taped from start to finish. You pick the colors, patterns, and grip style — we build it. No mass production, no cookie-cutter designs.",
     "stat_1_number": "100%",
     "stat_1_label": "Handmade",
     "stat_2_number": "1/1",
@@ -74,7 +71,7 @@
       },
       {
         "name": "Team Colors",
-        "description": "Rep your team, your school, or your squad. Send us your colors \u2014 we'll match them.",
+        "description": "Rep your team, your school, or your squad. Send us your colors — we'll match them.",
         "photo": ""
       },
       {
@@ -107,7 +104,7 @@
     "background": "dark",
     "alignment": "left",
     "heading": "Order a Bat.",
-    "subtext": "<p>Tell us what you're looking for \u2014 colors, style, quantity \u2014 and we'll get back to you with pricing and turnaround time.</p>",
+    "subtext": "<p>Tell us what you're looking for — colors, style, quantity — and we'll get back to you with pricing and turnaround time.</p>",
     "form_endpoint": "https://formspree.io/f/YOUR_FORM_ID",
     "button_label": "Send It"
   },
