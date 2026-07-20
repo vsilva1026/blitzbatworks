@@ -182,11 +182,24 @@
     }
     /* kicker sits on --primary hero, so --accent (bright) is fine */
     .hero h1 {
-      font-size: clamp(48px, 8vw, 96px);
+      font-size: clamp(56px, 9vw, 108px);
       margin-bottom: 20px;
+      line-height: 0.95;
     }
-    [data-theme="neon-retro"] .hero h1 { font-size: clamp(24px, 4vw, 40px); }
-    .hero h1 .accent { color: var(--accent); }
+    .hero h1 .lead-in {
+      display: block;
+      font-size: 0.42em;
+      letter-spacing: 0.06em;
+      opacity: 0.85;
+      margin-bottom: 6px;
+      line-height: 1.1;
+    }
+    .hero h1 .accent {
+      color: var(--accent);
+      display: block;
+    }
+    [data-theme="neon-retro"] .hero h1 { font-size: clamp(24px, 4vw, 44px); }
+    [data-theme="neon-retro"] .hero h1 .lead-in { font-size: 0.5em; }
     .hero .subtext {
       font-size: 20px; max-width: 560px; opacity: 0.9; margin-bottom: 36px;
     }
@@ -375,7 +388,7 @@
   <header class="hero" id="hero">
     <div class="container hero-content">
       <span class="kicker" data-c="hero.kicker"></span>
-      <h1><span data-c="hero.headline_top"></span><br><span class="accent" data-c="hero.headline_bottom"></span></h1>
+      <h1><span class="lead-in" data-c="hero.headline_top"></span><span class="accent" data-c="hero.headline_bottom"></span></h1>
       <div class="subtext" data-c="hero.subtext"></div>
       <a href="#contact" class="btn" data-c="hero.button_primary"></a>
       <a href="#about" class="btn secondary" data-c="hero.button_secondary"></a>
