@@ -12,7 +12,7 @@ content:
     fields:
       - name: theme
         label: Color Theme
-        description: Pick a color scheme for the whole site
+        description: Whole-site color scheme
         type: select
         options:
           values:
@@ -24,21 +24,82 @@ content:
             - { label: "Neon Retro", value: neon-retro }
 
       - name: hero
-        label: Hero (top of page)
+        label: Hero (top banner)
         type: object
         fields:
           - { name: kicker, label: Small tagline above headline, type: string }
           - { name: headline_top, label: Headline (line 1), type: string }
           - { name: headline_bottom, label: Headline (line 2 — accent color), type: string }
-          - { name: subtext, label: Subtext under headline, type: text }
-          - { name: button_primary, label: Main button label, type: string }
-          - { name: button_secondary, label: Second button label, type: string }
+          - { name: subtext, label: Subtext, type: rich-text }
+          - { name: button_primary, label: Main button, type: string }
+          - { name: button_secondary, label: Second button, type: string }
           - { name: background_image, label: Optional background photo, type: image }
+          - name: alignment
+            label: Text alignment
+            type: select
+            options:
+              values:
+                - { label: "Left", value: left }
+                - { label: "Center", value: center }
+                - { label: "Right", value: right }
+          - name: spacing
+            label: Height / Spacing
+            type: select
+            options:
+              values:
+                - { label: "Compact", value: compact }
+                - { label: "Normal", value: normal }
+                - { label: "Spacious", value: spacious }
+                - { label: "Extra Spacious", value: xspacious }
+
+      - name: section_order
+        label: Section Order
+        description: Drag sections to reorder how they appear on the page. Remove a section to hide it entirely.
+        type: object
+        list: true
+        fields:
+          - name: section
+            label: Section
+            type: select
+            options:
+              values:
+                - { label: "About", value: about }
+                - { label: "Featured Bat", value: featured }
+                - { label: "Bat Styles", value: products }
+                - { label: "Gallery", value: gallery }
+                - { label: "Testimonials", value: testimonials }
+                - { label: "Contact", value: contact }
 
       - name: about
         label: About Section
         type: object
         fields:
+          - { name: enabled, label: Show this section?, type: boolean }
+          - name: alignment
+            label: Text alignment
+            type: select
+            options:
+              values:
+                - { label: "Left", value: left }
+                - { label: "Center", value: center }
+                - { label: "Right", value: right }
+          - name: spacing
+            label: Spacing
+            type: select
+            options:
+              values:
+                - { label: "Compact", value: compact }
+                - { label: "Normal", value: normal }
+                - { label: "Spacious", value: spacious }
+                - { label: "Extra Spacious", value: xspacious }
+          - name: background
+            label: Background style
+            type: select
+            options:
+              values:
+                - { label: "Light", value: light }
+                - { label: "Dark (primary color)", value: dark }
+                - { label: "Accent (bold)", value: accent }
           - { name: heading, label: Heading, type: string }
           - { name: body, label: About text, type: rich-text }
           - { name: card_heading, label: Side card heading, type: string }
@@ -49,37 +110,116 @@ content:
           - { name: stat_2_label, label: Stat 2 label, type: string }
 
       - name: featured
-        label: Featured Bat (bat of the week)
-        description: Turn this on to show a spotlight bat above the product lineup
+        label: Featured Bat
         type: object
         fields:
-          - { name: enabled, label: Show featured bat?, type: boolean }
+          - { name: enabled, label: Show this section?, type: boolean }
+          - name: alignment
+            label: Text alignment
+            type: select
+            options:
+              values:
+                - { label: "Left", value: left }
+                - { label: "Center", value: center }
+                - { label: "Right", value: right }
+          - name: spacing
+            label: Spacing
+            type: select
+            options:
+              values:
+                - { label: "Compact", value: compact }
+                - { label: "Normal", value: normal }
+                - { label: "Spacious", value: spacious }
+                - { label: "Extra Spacious", value: xspacious }
+          - name: background
+            label: Background style
+            type: select
+            options:
+              values:
+                - { label: "Light", value: light }
+                - { label: "Dark", value: dark }
+                - { label: "Accent", value: accent }
           - { name: heading, label: Section heading, type: string }
           - { name: name, label: Bat name, type: string }
-          - { name: description, label: Description, type: text }
+          - { name: description, label: Description, type: rich-text }
           - { name: photo, label: Photo, type: image }
-
-      - { name: products_heading, label: Product section heading, type: string }
 
       - name: products
         label: Bat Styles
-        description: The different tape styles Eli offers
         type: object
-        list: true
         fields:
-          - { name: name, label: Style name, type: string }
-          - { name: description, label: Description, type: text }
-          - { name: photo, label: Photo (optional), type: image }
+          - { name: enabled, label: Show this section?, type: boolean }
+          - name: alignment
+            label: Text alignment
+            type: select
+            options:
+              values:
+                - { label: "Left", value: left }
+                - { label: "Center", value: center }
+                - { label: "Right", value: right }
+          - name: spacing
+            label: Spacing
+            type: select
+            options:
+              values:
+                - { label: "Compact", value: compact }
+                - { label: "Normal", value: normal }
+                - { label: "Spacious", value: spacious }
+                - { label: "Extra Spacious", value: xspacious }
+          - name: background
+            label: Background style
+            type: select
+            options:
+              values:
+                - { label: "Light", value: light }
+                - { label: "Dark", value: dark }
+                - { label: "Accent", value: accent }
+          - { name: heading, label: Section heading, type: string }
+          - name: items
+            label: Bat styles
+            description: Drag to reorder. Remove any you don't offer.
+            type: object
+            list: true
+            fields:
+              - { name: name, label: Style name, type: string }
+              - { name: description, label: Description, type: rich-text }
+              - { name: photo, label: Photo (optional), type: image }
 
       - name: gallery
-        label: Photo Gallery — Past Builds
+        label: Gallery
         type: object
         fields:
-          - { name: enabled, label: Show gallery?, type: boolean }
+          - { name: enabled, label: Show this section?, type: boolean }
+          - name: alignment
+            label: Text alignment
+            type: select
+            options:
+              values:
+                - { label: "Left", value: left }
+                - { label: "Center", value: center }
+                - { label: "Right", value: right }
+          - name: spacing
+            label: Spacing
+            type: select
+            options:
+              values:
+                - { label: "Compact", value: compact }
+                - { label: "Normal", value: normal }
+                - { label: "Spacious", value: spacious }
+                - { label: "Extra Spacious", value: xspacious }
+          - name: background
+            label: Background style
+            type: select
+            options:
+              values:
+                - { label: "Light", value: light }
+                - { label: "Dark", value: dark }
+                - { label: "Accent", value: accent }
           - { name: heading, label: Heading, type: string }
           - { name: subtext, label: Subtext, type: text }
           - name: images
             label: Photos
+            description: Drag to reorder.
             type: image
             list: true
 
@@ -87,27 +227,79 @@ content:
         label: Testimonials
         type: object
         fields:
-          - { name: enabled, label: Show testimonials?, type: boolean }
-          - { name: heading, label: Section heading, type: string }
+          - { name: enabled, label: Show this section?, type: boolean }
+          - name: alignment
+            label: Text alignment
+            type: select
+            options:
+              values:
+                - { label: "Left", value: left }
+                - { label: "Center", value: center }
+                - { label: "Right", value: right }
+          - name: spacing
+            label: Spacing
+            type: select
+            options:
+              values:
+                - { label: "Compact", value: compact }
+                - { label: "Normal", value: normal }
+                - { label: "Spacious", value: spacious }
+                - { label: "Extra Spacious", value: xspacious }
+          - name: background
+            label: Background style
+            type: select
+            options:
+              values:
+                - { label: "Light", value: light }
+                - { label: "Dark", value: dark }
+                - { label: "Accent", value: accent }
+          - { name: heading, label: Heading, type: string }
           - name: items
             label: Reviews
+            description: Drag to reorder.
             type: object
             list: true
             fields:
-              - { name: quote, label: Quote, type: text }
+              - { name: quote, label: Quote, type: rich-text }
               - { name: author, label: Who said it, type: string }
 
       - name: contact
         label: Contact Section
         type: object
         fields:
+          - { name: enabled, label: Show this section?, type: boolean }
+          - name: alignment
+            label: Text alignment
+            type: select
+            options:
+              values:
+                - { label: "Left", value: left }
+                - { label: "Center", value: center }
+                - { label: "Right", value: right }
+          - name: spacing
+            label: Spacing
+            type: select
+            options:
+              values:
+                - { label: "Compact", value: compact }
+                - { label: "Normal", value: normal }
+                - { label: "Spacious", value: spacious }
+                - { label: "Extra Spacious", value: xspacious }
+          - name: background
+            label: Background style
+            type: select
+            options:
+              values:
+                - { label: "Light", value: light }
+                - { label: "Dark (default)", value: dark }
+                - { label: "Accent", value: accent }
           - { name: heading, label: Heading, type: string }
-          - { name: subtext, label: Subtext, type: text }
-          - { name: form_endpoint, label: "Formspree URL (advanced — don't change)", type: string }
+          - { name: subtext, label: Subtext, type: rich-text }
+          - { name: form_endpoint, label: "Formspree URL (advanced)", type: string }
           - { name: button_label, label: Submit button label, type: string }
 
       - name: social
-        label: Social Links (leave blank to hide)
+        label: Social Links (blank to hide)
         type: object
         fields:
           - { name: instagram, label: Instagram URL, type: string }

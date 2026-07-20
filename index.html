@@ -56,10 +56,34 @@
     .logo { font-family: var(--heading-font); font-size: 28px; letter-spacing: 0.08em; }
     [data-theme="neon-retro"] .logo { font-size: 14px; }
     .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 28px; }
+    .nav-links { display: flex; gap: 28px; flex-wrap: wrap; }
     .nav-links a { text-decoration: none; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
     .nav-links a:hover { color: var(--accent); }
-    @media (max-width: 600px) { .nav-links { display: none; } }
+    @media (max-width: 700px) { .nav-links { display: none; } }
+
+    /* Spacing tokens */
+    section { padding: 96px 0; }
+    section[data-spacing="compact"] { padding: 48px 0; }
+    section[data-spacing="normal"] { padding: 80px 0; }
+    section[data-spacing="spacious"] { padding: 120px 0; }
+    section[data-spacing="xspacious"] { padding: 180px 0; }
+
+    /* Section backgrounds */
+    section[data-bg="light"] { background: var(--card); color: var(--ink); }
+    section[data-bg="light"] h2 { color: var(--primary); }
+    section[data-bg="dark"] { background: var(--primary); color: var(--bg); }
+    section[data-bg="dark"] h2, section[data-bg="dark"] h3 { color: var(--bg); }
+    [data-theme="neon-retro"] section[data-bg="dark"] h2 { color: var(--accent); }
+    section[data-bg="accent"] { background: var(--accent); color: #fff; }
+    section[data-bg="accent"] h2, section[data-bg="accent"] h3 { color: #fff; }
+    section[data-bg="accent"] .section-label { color: #fff; opacity: 0.9; }
+    section[data-bg="accent"] .btn { background: var(--primary); color: #fff; }
+
+    /* Alignment */
+    section[data-align="center"] .container { text-align: center; }
+    section[data-align="center"] .container > * { margin-left: auto; margin-right: auto; }
+    section[data-align="right"] .container { text-align: right; }
+    section[data-align="right"] .container > * { margin-left: auto; }
 
     .hero {
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
@@ -68,6 +92,12 @@
       position: relative;
       overflow: hidden;
     }
+    .hero[data-spacing="compact"] { padding: 48px 0 60px; }
+    .hero[data-spacing="normal"] { padding: 72px 0 96px; }
+    .hero[data-spacing="spacious"] { padding: 96px 0 120px; }
+    .hero[data-spacing="xspacious"] { padding: 140px 0 180px; }
+    .hero[data-align="center"] .hero-content { text-align: center; margin-left: auto; margin-right: auto; }
+    .hero[data-align="right"] .hero-content { text-align: right; margin-left: auto; }
     .hero.has-bg::after {
       content: ""; position: absolute; inset: 0;
       background-image: var(--hero-bg);
@@ -96,9 +126,11 @@
     }
     [data-theme="neon-retro"] .hero h1 { font-size: clamp(24px, 4vw, 40px); }
     .hero h1 .accent { color: var(--accent); }
-    .hero p {
+    .hero .subtext {
       font-size: 20px; max-width: 560px; opacity: 0.9; margin-bottom: 36px;
     }
+    .hero .subtext p { margin-bottom: 12px; }
+    .hero .subtext a { color: var(--accent); text-decoration: underline; }
     .btn {
       display: inline-block;
       background: var(--accent);
@@ -116,8 +148,6 @@
     .btn.secondary { background: transparent; border: 2px solid var(--bg); margin-left: 12px; }
     .btn.secondary:hover { background: var(--bg); color: var(--primary); }
 
-    section { padding: 96px 0; }
-    section.hidden { display: none; }
     .section-label {
       color: var(--accent);
       font-weight: 800;
@@ -138,9 +168,10 @@
       gap: 64px; align-items: center;
     }
     @media (max-width: 800px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
-    .about-body p { font-size: 18px; margin-bottom: 20px; }
-    .about-body ul, .about-body ol { margin: 0 0 20px 24px; font-size: 18px; }
-    .about-body a { color: var(--accent); text-decoration: underline; }
+    .rich-body p { font-size: 18px; margin-bottom: 20px; }
+    .rich-body ul, .rich-body ol { margin: 0 0 20px 24px; font-size: 18px; }
+    .rich-body a { color: var(--accent); text-decoration: underline; }
+    .rich-body strong { font-weight: 800; }
     .about-card {
       background: var(--primary);
       color: var(--bg);
@@ -148,22 +179,24 @@
       border-radius: 8px;
       border-left: 6px solid var(--accent);
     }
+    section[data-bg="dark"] .about-card { background: var(--primary-dark); }
+    section[data-bg="accent"] .about-card { background: var(--primary); }
     .about-card h3 { font-size: 32px; margin-bottom: 20px; color: var(--bg); }
     [data-theme="neon-retro"] .about-card h3 { font-size: 16px; }
-    .stat-row { display: flex; gap: 32px; margin-top: 24px; }
+    .stat-row { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
     .stat .num { font-family: var(--heading-font); font-size: 44px; color: var(--accent); line-height: 1; }
     [data-theme="neon-retro"] .stat .num { font-size: 20px; }
     .stat .lbl { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.8; }
 
-    .featured { background: var(--card); }
     .featured-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
     @media (max-width: 800px) { .featured-inner { grid-template-columns: 1fr; } }
-    .featured-photo { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; border: 4px solid var(--accent); background: var(--bg); }
-    .featured h3 { font-size: 42px; color: var(--primary); margin-bottom: 16px; }
-    [data-theme="neon-retro"] .featured h3 { font-size: 20px; color: var(--accent); }
-    .featured p { font-size: 18px; color: var(--muted); }
+    .featured-photo { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; border: 4px solid var(--accent); background: rgba(0,0,0,0.05); }
+    .featured-inner h3 { font-size: 42px; color: var(--primary); margin-bottom: 16px; }
+    [data-theme="neon-retro"] .featured-inner h3 { font-size: 20px; color: var(--accent); }
+    section[data-bg="dark"] .featured-inner h3, section[data-bg="accent"] .featured-inner h3 { color: var(--bg); }
+    .featured-desc { font-size: 18px; opacity: 0.85; }
+    .featured-desc p { margin-bottom: 12px; }
 
-    .products { background: var(--card); }
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -172,21 +205,23 @@
     }
     .product-card {
       background: var(--bg);
-      padding: 0;
       border-radius: 8px;
       border-top: 4px solid var(--accent);
       overflow: hidden;
       display: flex; flex-direction: column;
     }
+    section[data-bg="dark"] .product-card { background: var(--primary-dark); color: var(--bg); }
+    section[data-bg="accent"] .product-card { background: #fff; color: var(--ink); }
     .product-card .photo { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: rgba(0,0,0,0.05); }
     .product-card .body { padding: 24px 32px 32px; }
     .product-card h3 {
       font-size: 28px; color: var(--primary); margin-bottom: 12px;
     }
     [data-theme="neon-retro"] .product-card h3 { font-size: 14px; color: var(--accent); }
-    .product-card p { color: var(--muted); font-size: 15px; }
+    section[data-bg="dark"] .product-card h3 { color: var(--accent); }
+    .product-card .rich-body p { color: var(--muted); font-size: 15px; margin-bottom: 8px; }
+    section[data-bg="dark"] .product-card .rich-body p { color: var(--bg); opacity: 0.8; }
 
-    .gallery { background: var(--bg); }
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -201,8 +236,8 @@
       transition: transform 0.2s ease;
     }
     .gallery-grid img:hover { transform: scale(1.03); }
+    .gallery-subtext { max-width: 560px; font-size: 18px; opacity: 0.75; }
 
-    .testimonials { background: var(--card); }
     .testi-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -215,30 +250,36 @@
       border-radius: 8px;
       border-left: 4px solid var(--accent);
     }
+    section[data-bg="dark"] .testi-card { background: var(--primary-dark); }
+    section[data-bg="accent"] .testi-card { background: #fff; color: var(--ink); }
     .testi-card blockquote {
-      font-size: 18px; font-style: italic; color: var(--ink); margin-bottom: 16px;
+      font-size: 18px; font-style: italic; margin-bottom: 16px;
     }
+    .testi-card blockquote p { margin-bottom: 8px; }
     .testi-card .who {
       font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 800;
     }
 
-    .contact { background: var(--primary); color: var(--bg); }
-    .contact h2 { color: var(--bg); }
-    [data-theme="neon-retro"] .contact h2 { color: var(--accent); }
     .contact-wrap { max-width: 560px; }
-    .contact p { font-size: 18px; margin-bottom: 32px; opacity: 0.9; }
-    form { display: grid; gap: 16px; }
+    section[data-align="center"] .contact-wrap { margin: 0 auto; }
+    .contact-subtext { font-size: 18px; margin-bottom: 32px; opacity: 0.9; }
+    .contact-subtext p { margin-bottom: 12px; }
+    form { display: grid; gap: 16px; text-align: left; }
     label { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 800; }
     input, textarea {
       width: 100%; padding: 14px 16px;
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 4px;
-      color: var(--bg);
+      color: inherit;
       font-family: inherit;
       font-size: 16px;
     }
-    input:focus, textarea:focus { outline: none; border-color: var(--accent); background: rgba(255,255,255,0.12); }
+    section[data-bg="light"] input, section[data-bg="light"] textarea {
+      background: rgba(0,0,0,0.03);
+      border-color: rgba(0,0,0,0.15);
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--accent); }
     textarea { resize: vertical; min-height: 120px; }
     form .btn { border: none; cursor: pointer; margin-top: 8px; justify-self: start; }
 
@@ -261,12 +302,7 @@
   <nav>
     <div class="container">
       <div class="logo">BLITZ<span>·</span>BAT WORKS</div>
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#bats">Bats</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#contact">Contact</a>
-      </div>
+      <div class="nav-links" id="nav-links"></div>
     </div>
   </nav>
 
@@ -274,90 +310,13 @@
     <div class="container hero-content">
       <span class="kicker" data-c="hero.kicker"></span>
       <h1><span data-c="hero.headline_top"></span><br><span class="accent" data-c="hero.headline_bottom"></span></h1>
-      <p data-c="hero.subtext"></p>
+      <div class="subtext" data-c="hero.subtext"></div>
       <a href="#contact" class="btn" data-c="hero.button_primary"></a>
       <a href="#about" class="btn secondary" data-c="hero.button_secondary"></a>
     </div>
   </header>
 
-  <section id="about" class="about">
-    <div class="container">
-      <div class="about-grid">
-        <div>
-          <div class="section-label">About</div>
-          <h2 data-c="about.heading"></h2>
-          <div class="about-body" data-c="about.body"></div>
-        </div>
-        <div class="about-card">
-          <h3 data-c="about.card_heading"></h3>
-          <p data-c="about.card_text"></p>
-          <div class="stat-row">
-            <div class="stat">
-              <div class="num" data-c="about.stat_1_number"></div>
-              <div class="lbl" data-c="about.stat_1_label"></div>
-            </div>
-            <div class="stat">
-              <div class="num" data-c="about.stat_2_number"></div>
-              <div class="lbl" data-c="about.stat_2_label"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="featured" class="featured hidden">
-    <div class="container">
-      <div class="section-label">Spotlight</div>
-      <h2 data-c="featured.heading"></h2>
-      <div class="featured-inner">
-        <img class="featured-photo" id="featured-photo" alt="" />
-        <div>
-          <h3 data-c="featured.name"></h3>
-          <p data-c="featured.description"></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="bats" class="products">
-    <div class="container">
-      <div class="section-label">The Lineup</div>
-      <h2 data-c="products_heading"></h2>
-      <div class="product-grid" id="product-grid"></div>
-    </div>
-  </section>
-
-  <section id="gallery" class="gallery hidden">
-    <div class="container">
-      <div class="section-label">Gallery</div>
-      <h2 data-c="gallery.heading"></h2>
-      <p style="max-width:560px;font-size:18px;color:var(--muted);" data-c="gallery.subtext"></p>
-      <div class="gallery-grid" id="gallery-grid"></div>
-    </div>
-  </section>
-
-  <section id="testimonials" class="testimonials hidden">
-    <div class="container">
-      <div class="section-label">Reviews</div>
-      <h2 data-c="testimonials.heading"></h2>
-      <div class="testi-grid" id="testi-grid"></div>
-    </div>
-  </section>
-
-  <section id="contact" class="contact">
-    <div class="container contact-wrap">
-      <div class="section-label">Contact</div>
-      <h2 data-c="contact.heading"></h2>
-      <p data-c="contact.subtext"></p>
-      <form id="contact-form" method="POST">
-        <div><label for="name">Your Name</label><input type="text" id="name" name="name" required /></div>
-        <div><label for="email">Email</label><input type="email" id="email" name="email" required /></div>
-        <div><label for="message">What kind of bat do you want?</label><textarea id="message" name="message" placeholder="Colors, style, quantity, anything else..." required></textarea></div>
-        <button type="submit" class="btn" data-c="contact.button_label"></button>
-      </form>
-    </div>
-  </section>
+  <main id="sections"></main>
 
   <footer>
     <div class="container">
@@ -373,13 +332,121 @@
     function getPath(obj, path) {
       return path.split('.').reduce((o, k) => (o ? o[k] : undefined), obj);
     }
-
     function normalizeMedia(path) {
       if (!path) return '';
       if (/^https?:\/\//.test(path)) return path;
       if (path.startsWith('/')) return path;
       return '/' + path.replace(/^\.?\//, '');
     }
+    function esc(s) {
+      return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+    function sectionAttrs(cfg, id) {
+      const bg = cfg.background || 'light';
+      const sp = cfg.spacing || 'normal';
+      const al = cfg.alignment || 'left';
+      return `id="${id}" data-bg="${bg}" data-spacing="${sp}" data-align="${al}"`;
+    }
+
+    const renderers = {
+      about(cfg) {
+        if (!cfg.enabled) return '';
+        return `<section ${sectionAttrs(cfg,'about')} class="about">
+          <div class="container">
+            <div class="about-grid">
+              <div>
+                <div class="section-label">About</div>
+                <h2>${esc(cfg.heading || '')}</h2>
+                <div class="rich-body">${cfg.body || ''}</div>
+              </div>
+              <div class="about-card">
+                <h3>${esc(cfg.card_heading || '')}</h3>
+                <p>${esc(cfg.card_text || '')}</p>
+                <div class="stat-row">
+                  <div class="stat"><div class="num">${esc(cfg.stat_1_number || '')}</div><div class="lbl">${esc(cfg.stat_1_label || '')}</div></div>
+                  <div class="stat"><div class="num">${esc(cfg.stat_2_number || '')}</div><div class="lbl">${esc(cfg.stat_2_label || '')}</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>`;
+      },
+      featured(cfg) {
+        if (!cfg.enabled || !cfg.name) return '';
+        const photo = cfg.photo ? `<img class="featured-photo" src="${normalizeMedia(cfg.photo)}" alt="${esc(cfg.name)}">` : '<div class="featured-photo"></div>';
+        return `<section ${sectionAttrs(cfg,'featured')} class="featured">
+          <div class="container">
+            <div class="section-label">Spotlight</div>
+            <h2>${esc(cfg.heading || '')}</h2>
+            <div class="featured-inner">
+              ${photo}
+              <div>
+                <h3>${esc(cfg.name)}</h3>
+                <div class="featured-desc">${cfg.description || ''}</div>
+              </div>
+            </div>
+          </div>
+        </section>`;
+      },
+      products(cfg) {
+        if (!cfg.enabled) return '';
+        const cards = (cfg.items || []).map(p => {
+          const photo = p.photo ? `<img class="photo" src="${normalizeMedia(p.photo)}" alt="${esc(p.name)}">` : '';
+          return `<div class="product-card">${photo}<div class="body"><h3>${esc(p.name)}</h3><div class="rich-body">${p.description || ''}</div></div></div>`;
+        }).join('');
+        return `<section ${sectionAttrs(cfg,'bats')} class="products">
+          <div class="container">
+            <div class="section-label">The Lineup</div>
+            <h2>${esc(cfg.heading || '')}</h2>
+            <div class="product-grid">${cards}</div>
+          </div>
+        </section>`;
+      },
+      gallery(cfg) {
+        if (!cfg.enabled || !(cfg.images || []).length) return '';
+        const imgs = cfg.images.map(src => `<img src="${normalizeMedia(src)}" alt="Custom wiffle bat">`).join('');
+        return `<section ${sectionAttrs(cfg,'gallery')} class="gallery">
+          <div class="container">
+            <div class="section-label">Gallery</div>
+            <h2>${esc(cfg.heading || '')}</h2>
+            <p class="gallery-subtext">${esc(cfg.subtext || '')}</p>
+            <div class="gallery-grid">${imgs}</div>
+          </div>
+        </section>`;
+      },
+      testimonials(cfg) {
+        if (!cfg.enabled || !(cfg.items || []).length) return '';
+        const cards = cfg.items.map(t => `<div class="testi-card"><blockquote>${t.quote || ''}</blockquote><div class="who">— ${esc(t.author || '')}</div></div>`).join('');
+        return `<section ${sectionAttrs(cfg,'testimonials')} class="testimonials">
+          <div class="container">
+            <div class="section-label">Reviews</div>
+            <h2>${esc(cfg.heading || '')}</h2>
+            <div class="testi-grid">${cards}</div>
+          </div>
+        </section>`;
+      },
+      contact(cfg) {
+        if (!cfg.enabled) return '';
+        return `<section ${sectionAttrs(cfg,'contact')} class="contact">
+          <div class="container">
+            <div class="contact-wrap">
+              <div class="section-label">Contact</div>
+              <h2>${esc(cfg.heading || '')}</h2>
+              <div class="contact-subtext">${cfg.subtext || ''}</div>
+              <form action="${esc(cfg.form_endpoint || '')}" method="POST">
+                <div><label for="name">Your Name</label><input type="text" id="name" name="name" required></div>
+                <div><label for="email">Email</label><input type="email" id="email" name="email" required></div>
+                <div><label for="message">What kind of bat do you want?</label><textarea id="message" name="message" placeholder="Colors, style, quantity, anything else..." required></textarea></div>
+                <button type="submit" class="btn">${esc(cfg.button_label || 'Send It')}</button>
+              </form>
+            </div>
+          </div>
+        </section>`;
+      }
+    };
+
+    const navLabels = { about: 'About', featured: 'Featured', products: 'Bats', gallery: 'Gallery', testimonials: 'Reviews', contact: 'Contact' };
+    const navAnchors = { about: 'about', featured: 'featured', products: 'bats', gallery: 'gallery', testimonials: 'testimonials', contact: 'contact' };
 
     fetch('content/site.json?v=' + Date.now())
       .then(r => r.json())
@@ -391,62 +458,36 @@
           if (val !== undefined && val !== null) el.innerHTML = val;
         });
 
-        if (data.hero && data.hero.background_image) {
-          const hero = document.getElementById('hero');
-          hero.style.setProperty('--hero-bg', `url("${normalizeMedia(data.hero.background_image)}")`);
-          hero.classList.add('has-bg');
+        const hero = document.getElementById('hero');
+        if (data.hero) {
+          hero.setAttribute('data-align', data.hero.alignment || 'left');
+          hero.setAttribute('data-spacing', data.hero.spacing || 'spacious');
+          if (data.hero.background_image) {
+            hero.style.setProperty('--hero-bg', `url("${normalizeMedia(data.hero.background_image)}")`);
+            hero.classList.add('has-bg');
+          }
         }
 
-        if (data.featured && data.featured.enabled && data.featured.name) {
-          const s = document.getElementById('featured');
-          s.classList.remove('hidden');
-          const img = document.getElementById('featured-photo');
-          if (data.featured.photo) img.src = normalizeMedia(data.featured.photo);
-          else img.style.display = 'none';
-        }
+        const order = (data.section_order || []).map(s => s.section).filter(Boolean);
+        const seen = new Set();
+        const html = order.map(name => {
+          if (seen.has(name) || !renderers[name] || !data[name]) return '';
+          seen.add(name);
+          return renderers[name](data[name]);
+        }).join('');
+        document.getElementById('sections').innerHTML = html;
 
-        const grid = document.getElementById('product-grid');
-        (data.products || []).forEach(prod => {
-          const card = document.createElement('div');
-          card.className = 'product-card';
-          const photoHtml = prod.photo ? `<img class="photo" src="${normalizeMedia(prod.photo)}" alt="${prod.name}">` : '';
-          card.innerHTML = `${photoHtml}<div class="body"><h3>${prod.name}</h3><p>${prod.description}</p></div>`;
-          grid.appendChild(card);
-        });
-
-        if (data.gallery && data.gallery.enabled && (data.gallery.images || []).length) {
-          const gs = document.getElementById('gallery');
-          gs.classList.remove('hidden');
-          const gg = document.getElementById('gallery-grid');
-          data.gallery.images.forEach(img => {
-            const el = document.createElement('img');
-            el.src = normalizeMedia(img);
-            el.alt = 'Custom wiffle bat';
-            gg.appendChild(el);
-          });
-        }
-
-        if (data.testimonials && data.testimonials.enabled && (data.testimonials.items || []).length) {
-          const ts = document.getElementById('testimonials');
-          ts.classList.remove('hidden');
-          const tg = document.getElementById('testi-grid');
-          data.testimonials.items.forEach(t => {
-            const el = document.createElement('div');
-            el.className = 'testi-card';
-            el.innerHTML = `<blockquote>"${t.quote}"</blockquote><div class="who">— ${t.author}</div>`;
-            tg.appendChild(el);
-          });
-        }
+        const nav = document.getElementById('nav-links');
+        nav.innerHTML = order
+          .filter(n => data[n] && data[n].enabled)
+          .map(n => `<a href="#${navAnchors[n]}">${navLabels[n]}</a>`).join('');
 
         const sr = document.getElementById('social-row');
         const links = [];
-        if (data.social && data.social.instagram) links.push(`<a href="${data.social.instagram}" target="_blank" rel="noopener">Instagram</a>`);
-        if (data.social && data.social.tiktok) links.push(`<a href="${data.social.tiktok}" target="_blank" rel="noopener">TikTok</a>`);
-        if (data.social && data.social.email) links.push(`<a href="mailto:${data.social.email}">Email</a>`);
+        if (data.social && data.social.instagram) links.push(`<a href="${esc(data.social.instagram)}" target="_blank" rel="noopener">Instagram</a>`);
+        if (data.social && data.social.tiktok) links.push(`<a href="${esc(data.social.tiktok)}" target="_blank" rel="noopener">TikTok</a>`);
+        if (data.social && data.social.email) links.push(`<a href="mailto:${esc(data.social.email)}">Email</a>`);
         sr.innerHTML = links.join('');
-
-        const form = document.getElementById('contact-form');
-        if (data.contact && data.contact.form_endpoint) form.action = data.contact.form_endpoint;
       });
   </script>
 </body>

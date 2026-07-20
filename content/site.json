@@ -4,12 +4,26 @@
     "kicker": "Hand-Taped · Made to Order",
     "headline_top": "Custom Blitz Bats For",
     "headline_bottom": "Backyard Legends.",
-    "subtext": "One-of-a-kind Blitz bats, wrapped and taped by hand. Pick your colors, pick your style — every bat is built to your specs.",
+    "subtext": "<p>One-of-a-kind Blitz bats, wrapped and taped by hand. Pick your colors, pick your style — every bat is built to your specs.</p>",
     "button_primary": "Order Yours",
     "button_secondary": "Our Story",
-    "background_image": ""
+    "background_image": "",
+    "alignment": "left",
+    "spacing": "spacious"
   },
+  "section_order": [
+    { "section": "about" },
+    { "section": "featured" },
+    { "section": "products" },
+    { "section": "gallery" },
+    { "section": "testimonials" },
+    { "section": "contact" }
+  ],
   "about": {
+    "enabled": true,
+    "spacing": "normal",
+    "background": "light",
+    "alignment": "left",
     "heading": "Built in the Backyard.",
     "body": "<p>Blitz Bat Works started the way every great backyard idea does — with a beat-up wiffle bat, a roll of tape, and a summer afternoon.</p><p>What began as customizing bats for pickup games turned into something more: bats built to order, each one wrapped and finished by hand. No two are the same. Every bat gets its own color scheme, its own grip, its own personality.</p><p>Whether you're squaring up for a home run derby, a family cookout tournament, or you just want a bat that actually looks like <em>yours</em> — we've got you covered.</p>",
     "card_heading": "What Makes Us Different",
@@ -21,32 +35,51 @@
   },
   "featured": {
     "enabled": false,
+    "spacing": "normal",
+    "background": "light",
+    "alignment": "left",
     "heading": "Bat of the Week",
     "name": "",
     "description": "",
     "photo": ""
   },
-  "products_heading": "Pick Your Style.",
-  "products": [
-    { "name": "Classic Wrap", "description": "Clean two-color tape job with a solid grip. The everyday bat for backyard ballers.", "photo": "" },
-    { "name": "Spiral Series", "description": "Multi-color spirals down the barrel. Loud, fast, and impossible to miss.", "photo": "" },
-    { "name": "Team Colors", "description": "Rep your team, your school, or your squad. Send us your colors — we'll match them.", "photo": "" },
-    { "name": "Fully Custom", "description": "Got a design in mind? Send it over. If we can tape it, we'll build it.", "photo": "" }
-  ],
+  "products": {
+    "enabled": true,
+    "spacing": "normal",
+    "background": "light",
+    "alignment": "left",
+    "heading": "Pick Your Style.",
+    "items": [
+      { "name": "Classic Wrap", "description": "Clean two-color tape job with a solid grip. The everyday bat for backyard ballers.", "photo": "" },
+      { "name": "Spiral Series", "description": "Multi-color spirals down the barrel. Loud, fast, and impossible to miss.", "photo": "" },
+      { "name": "Team Colors", "description": "Rep your team, your school, or your squad. Send us your colors — we'll match them.", "photo": "" },
+      { "name": "Fully Custom", "description": "Got a design in mind? Send it over. If we can tape it, we'll build it.", "photo": "" }
+    ]
+  },
   "gallery": {
     "enabled": true,
+    "spacing": "normal",
+    "background": "light",
+    "alignment": "left",
     "heading": "Past Builds",
     "subtext": "A few bats we've made recently.",
     "images": []
   },
   "testimonials": {
     "enabled": true,
+    "spacing": "normal",
+    "background": "light",
+    "alignment": "left",
     "heading": "What People Say",
     "items": []
   },
   "contact": {
+    "enabled": true,
+    "spacing": "normal",
+    "background": "dark",
+    "alignment": "left",
     "heading": "Order a Bat.",
-    "subtext": "Tell us what you're looking for — colors, style, quantity — and we'll get back to you with pricing and turnaround time.",
+    "subtext": "<p>Tell us what you're looking for — colors, style, quantity — and we'll get back to you with pricing and turnaround time.</p>",
     "form_endpoint": "https://formspree.io/f/YOUR_FORM_ID",
     "button_label": "Send It"
   },
