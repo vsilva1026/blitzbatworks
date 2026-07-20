@@ -823,7 +823,7 @@ document.getElementById('reset-btn').addEventListener('click', async () => {
 // ------------ Publishing via Worker ------------
 // Endpoint of the Cloudflare Worker that holds the GitHub token.
 // Override during setup: window.PUBLISH_ENDPOINT = 'https://...'
-const PUBLISH_ENDPOINT = window.PUBLISH_ENDPOINT || '/api/publish';
+const PUBLISH_ENDPOINT = window.PUBLISH_ENDPOINT || 'https://blitzbat-publish.victor-silva-1.workers.dev/api/publish';
 
 const CFG_KEY = 'blitzbat-cfg';
 const SESSION_KEY = 'blitzbat-session-pass';
