@@ -1,0 +1,10 @@
+name = "blitzbat-publish"
+main = "publish.js"
+compatibility_date = "2026-01-01"
+
+[vars]
+REPO = "vsilva1026/blitzbatworks"
+BRANCH = "main"
+
+# Secrets set via: wrangler secret put GITHUB_TOKEN
+# Secrets set via: wrangler secret put PUBLISH_PASSPHRASE
