@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blitz Bat Works — Custom Taped Wiffle Ball Bats</title>
+  <meta name="description" content="Hand-taped custom wiffle ball bats built for backyard legends. One-of-a-kind designs, made to order." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0f2a44;
+      --navy-dark: #0a1d30;
+      --red: #d7263d;
+      --cream: #f5efe0;
+      --ink: #1a1a1a;
+      --muted: #6b6b6b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, .display {
+      font-family: 'Bebas Neue', 'Inter', sans-serif;
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+    }
+    a { color: inherit; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--navy);
+      color: var(--cream);
+      padding: 16px 0;
+      border-bottom: 3px solid var(--red);
+    }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.08em; }
+    .logo span { color: var(--red); }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { text-decoration: none; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
+    .nav-links a:hover { color: var(--red); }
+    @media (max-width: 600px) { .nav-links { display: none; } }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+      color: var(--cream);
+      padding: 96px 0 120px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -50%; right: -20%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(215, 38, 61, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; max-width: 720px; }
+    .kicker {
+      display: inline-block;
+      color: var(--red);
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(48px, 8vw, 96px);
+      margin-bottom: 20px;
+    }
+    .hero h1 .accent { color: var(--red); }
+    .hero p {
+      font-size: 20px;
+      max-width: 560px;
+      opacity: 0.9;
+      margin-bottom: 36px;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      padding: 16px 32px;
+      text-decoration: none;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 14px;
+      border-radius: 4px;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .btn:hover { background: #b81f33; transform: translateY(-2px); }
+    .btn.secondary { background: transparent; border: 2px solid var(--cream); margin-left: 12px; }
+    .btn.secondary:hover { background: var(--cream); color: var(--navy); }
+
+    /* Sections */
+    section { padding: 96px 0; }
+    .section-label {
+      color: var(--red);
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    section h2 {
+      font-size: clamp(40px, 6vw, 64px);
+      color: var(--navy);
+      margin-bottom: 32px;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    @media (max-width: 800px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+    .about p { font-size: 18px; margin-bottom: 20px; color: #333; }
+    .about-card {
+      background: var(--navy);
+      color: var(--cream);
+      padding: 40px;
+      border-radius: 8px;
+      border-left: 6px solid var(--red);
+    }
+    .about-card h3 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: var(--cream);
+    }
+    .stat-row { display: flex; gap: 32px; margin-top: 24px; }
+    .stat .num { font-family: 'Bebas Neue'; font-size: 44px; color: var(--red); line-height: 1; }
+    .stat .lbl { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.8; }
+
+    /* Products */
+    .products { background: white; }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .product-card {
+      background: var(--cream);
+      padding: 32px;
+      border-radius: 8px;
+      border-top: 4px solid var(--red);
+    }
+    .product-card h3 {
+      font-size: 28px;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .product-card p { color: var(--muted); font-size: 15px; }
+
+    /* Contact */
+    .contact { background: var(--navy); color: var(--cream); }
+    .contact h2 { color: var(--cream); }
+    .contact-wrap { max-width: 560px; }
+    .contact p { font-size: 18px; margin-bottom: 32px; opacity: 0.9; }
+    form { display: grid; gap: 16px; }
+    label { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 800; }
+    input, textarea {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+      color: var(--cream);
+      font-family: inherit;
+      font-size: 16px;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--red); background: rgba(255,255,255,0.12); }
+    textarea { resize: vertical; min-height: 120px; }
+    form .btn { border: none; cursor: pointer; margin-top: 8px; justify-self: start; }
+
+    /* Footer */
+    footer {
+      background: var(--navy-dark);
+      color: var(--cream);
+      padding: 32px 0;
+      text-align: center;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+    footer .logo { font-size: 20px; margin-bottom: 8px; display: block; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <div class="logo">BLITZ<span>·</span>BAT WORKS</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#bats">Bats</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-content">
+      <span class="kicker">Hand-Taped · Made to Order</span>
+      <h1>Custom Wiffle Bats.<br><span class="accent">Backyard Legends.</span></h1>
+      <p>One-of-a-kind wiffle ball bats, wrapped and taped by hand. Pick your colors, pick your style — every bat is built to your specs.</p>
+      <a href="#contact" class="btn">Order Yours</a>
+      <a href="#about" class="btn secondary">Our Story</a>
+    </div>
+  </header>
+
+  <section id="about" class="about">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <div class="section-label">About</div>
+          <h2>Built in the Backyard.</h2>
+          <p>Blitz Bat Works started the way every great backyard idea does — with a beat-up wiffle bat, a roll of tape, and a summer afternoon.</p>
+          <p>What began as customizing bats for pickup games turned into something more: bats built to order, each one wrapped and finished by hand. No two are the same. Every bat gets its own color scheme, its own grip, its own personality.</p>
+          <p>Whether you're squaring up for a home run derby, a family cookout tournament, or you just want a bat that actually looks like <em>yours</em> — we've got you covered.</p>
+        </div>
+        <div class="about-card">
+          <h3>What Makes Us Different</h3>
+          <p>Every bat is hand-taped from start to finish. You pick the colors, patterns, and grip style — we build it. No mass production, no cookie-cutter designs.</p>
+          <div class="stat-row">
+            <div class="stat">
+              <div class="num">100%</div>
+              <div class="lbl">Handmade</div>
+            </div>
+            <div class="stat">
+              <div class="num">1/1</div>
+              <div class="lbl">Every Design</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bats" class="products">
+    <div class="container">
+      <div class="section-label">The Lineup</div>
+      <h2>Pick Your Style.</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <h3>Classic Wrap</h3>
+          <p>Clean two-color tape job with a solid grip. The everyday bat for backyard ballers.</p>
+        </div>
+        <div class="product-card">
+          <h3>Spiral Series</h3>
+          <p>Multi-color spirals down the barrel. Loud, fast, and impossible to miss.</p>
+        </div>
+        <div class="product-card">
+          <h3>Team Colors</h3>
+          <p>Rep your team, your school, or your squad. Send us your colors — we'll match them.</p>
+        </div>
+        <div class="product-card">
+          <h3>Fully Custom</h3>
+          <p>Got a design in mind? Send it over. If we can tape it, we'll build it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container contact-wrap">
+      <div class="section-label">Contact</div>
+      <h2>Order a Bat.</h2>
+      <p>Tell us what you're looking for — colors, style, quantity — and we'll get back to you with pricing and turnaround time.</p>
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div>
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div>
+          <label for="message">What kind of bat do you want?</label>
+          <textarea id="message" name="message" placeholder="Colors, style, quantity, anything else..." required></textarea>
+        </div>
+        <button type="submit" class="btn">Send It</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <span class="logo">BLITZ<span style="color:var(--red)">·</span>BAT WORKS</span>
+      <div>© <span id="year"></span> Blitz Bat Works. All bats hand-taped with love.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
