@@ -272,7 +272,7 @@
     </div>
 
     <div class="actions" style="margin-bottom: 24px;">
-      <button class="btn secondary" id="import-btn" style="flex:1;">Import</button>
+      <button class="btn secondary" id="settings-btn" style="flex:1;">⚙ Settings</button>
       <button class="btn secondary" id="export-btn" style="flex:1;">Export</button>
     </div>
 
@@ -290,24 +290,45 @@
     <iframe id="preview-frame" src="preview-frame.html"></iframe>
   </div>
 
-  <dialog id="publish-dlg">
-    <h3>Publish to Live Site</h3>
-    <p>Copy the text below, then paste it into <b>Pages CMS</b> to make it live. Or download and upload it directly to GitHub.</p>
-    <textarea id="publish-text" readonly></textarea>
+  <dialog id="settings-dlg">
+    <h3>Publishing Settings</h3>
+    <p>To publish directly to the live site, paste a GitHub token below. This is stored only in your browser.</p>
+    <p style="font-size:12px;opacity:0.7;">Create one at: <a href="https://github.com/settings/tokens/new?description=Blitz+Bat+Playground&scopes=repo" target="_blank" style="color:#d7263d;">github.com/settings/tokens/new</a> — pick "Fine-grained token" or classic with <b>repo</b> scope, then copy it here.</p>
+    <div class="field" style="margin-top:12px;">
+      <label>GitHub repo (owner/name)</label>
+      <input type="text" id="cfg-repo" placeholder="vsilva1026/blitzbatworks">
+    </div>
+    <div class="field">
+      <label>GitHub Token</label>
+      <input type="password" id="cfg-token" placeholder="ghp_...">
+    </div>
+    <div class="field">
+      <label>Branch</label>
+      <input type="text" id="cfg-branch" value="main">
+    </div>
     <div class="dlg-actions">
-      <button class="btn secondary" id="dlg-copy">Copy</button>
-      <button class="btn secondary" id="dlg-download">Download</button>
-      <button class="btn" id="dlg-close">Done</button>
+      <button class="btn secondary" id="settings-cancel">Cancel</button>
+      <button class="btn secondary" id="settings-clear">Clear</button>
+      <button class="btn" id="settings-save">Save</button>
     </div>
   </dialog>
 
-  <dialog id="import-dlg">
-    <h3>Import Site Content</h3>
-    <p>Paste your <code>site.json</code> content here to load it:</p>
-    <textarea id="import-text"></textarea>
+  <dialog id="publish-dlg">
+    <h3 id="pub-title">Publishing...</h3>
+    <div id="pub-progress" style="min-height:120px;font-family:'SF Mono',Menlo,monospace;font-size:12px;line-height:1.7;white-space:pre-wrap;background:rgba(0,0,0,0.3);padding:14px;border-radius:4px;"></div>
     <div class="dlg-actions">
-      <button class="btn secondary" id="import-cancel">Cancel</button>
-      <button class="btn" id="import-load">Load</button>
+      <button class="btn" id="pub-close" style="display:none;">Done</button>
+    </div>
+  </dialog>
+
+  <dialog id="fallback-dlg">
+    <h3>Publish (Manual)</h3>
+    <p>No GitHub token set up. Copy the text below and paste it into <b>Pages CMS</b>. Or click ⚙ Settings to enable one-click publishing.</p>
+    <textarea id="fallback-text" readonly></textarea>
+    <div class="dlg-actions">
+      <button class="btn secondary" id="fb-copy">Copy</button>
+      <button class="btn secondary" id="fb-download">Download</button>
+      <button class="btn" id="fb-close">Done</button>
     </div>
   </dialog>
 
@@ -805,41 +826,221 @@ document.getElementById('reset-btn').addEventListener('click', async () => {
   setStatus('Live version', 'saved');
   render();
 });
-document.getElementById('publish-btn').addEventListener('click', () => {
-  const clean = JSON.parse(JSON.stringify(state));
-  document.getElementById('publish-text').value = JSON.stringify(clean, null, 2);
-  document.getElementById('publish-dlg').showModal();
+// ------------ GitHub publishing ------------
+const CFG_KEY = 'blitzbat-cfg';
+function getCfg() {
+  try { return JSON.parse(localStorage.getItem(CFG_KEY) || '{}'); } catch { return {}; }
+}
+function setCfg(cfg) {
+  localStorage.setItem(CFG_KEY, JSON.stringify(cfg));
+}
+
+async function gh(path, opts, cfg) {
+  const res = await fetch(`https://api.github.com/repos/${cfg.repo}${path}`, {
+    ...opts,
+    headers: {
+      Authorization: `token ${cfg.token}`,
+      Accept: 'application/vnd.github+json',
+      'Content-Type': 'application/json',
+      ...(opts && opts.headers || {})
+    }
+  });
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`GitHub ${res.status}: ${body.slice(0, 200)}`);
+  }
+  return res.json();
+}
+
+function b64utf8(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+// Convert every data:image URL in state into an uploaded file, replacing with /images/... path
+async function uploadInlineImages(cfg, log) {
+  const uploads = [];
+  function walk(obj, setter) {
+    if (obj == null) return;
+    if (typeof obj === 'string' && obj.startsWith('data:image/')) {
+      uploads.push({ dataUrl: obj, setter });
+    } else if (Array.isArray(obj)) {
+      obj.forEach((v, i) => walk(v, x => obj[i] = x));
+    } else if (typeof obj === 'object') {
+      for (const k of Object.keys(obj)) walk(obj[k], x => obj[k] = x);
+    }
+  }
+  walk(state, () => {});
+  if (uploads.length === 0) return;
+
+  log(`Uploading ${uploads.length} image${uploads.length > 1 ? 's' : ''}...`);
+  // Need to walk again to actually get setters (walk above doesn't work with primitives), do it inline:
+  const jobs = [];
+  function walk2(obj) {
+    if (obj == null) return;
+    if (Array.isArray(obj)) {
+      obj.forEach((v, i) => {
+        if (typeof v === 'string' && v.startsWith('data:image/')) {
+          jobs.push({ dataUrl: v, setter: x => obj[i] = x });
+        } else walk2(v);
+      });
+    } else if (typeof obj === 'object') {
+      for (const k of Object.keys(obj)) {
+        const v = obj[k];
+        if (typeof v === 'string' && v.startsWith('data:image/')) {
+          jobs.push({ dataUrl: v, setter: x => obj[k] = x });
+        } else walk2(v);
+      }
+    }
+  }
+  walk2(state);
+
+  for (let i = 0; i < jobs.length; i++) {
+    const job = jobs[i];
+    const match = /^data:image\/([a-zA-Z0-9+.-]+);base64,(.+)$/.exec(job.dataUrl);
+    if (!match) continue;
+    const ext = match[1].toLowerCase().replace('jpeg', 'jpg').replace('svg+xml', 'svg');
+    const bytes = match[2];
+    const hash = await sha256(bytes);
+    const filename = `${hash.slice(0, 12)}.${ext}`;
+    const path = `images/${filename}`;
+    log(`  [${i+1}/${jobs.length}] ${filename}`);
+
+    // Check if file already exists (skip upload)
+    let sha;
+    try {
+      const existing = await gh(`/contents/${path}?ref=${encodeURIComponent(cfg.branch)}`, {}, cfg);
+      sha = existing.sha;
+    } catch {}
+    if (!sha) {
+      await gh(`/contents/${path}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          message: `Upload image ${filename}`,
+          content: bytes,
+          branch: cfg.branch
+        })
+      }, cfg);
+    }
+    job.setter('/' + path);
+  }
+}
+
+async function sha256(base64) {
+  const bin = atob(base64);
+  const buf = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+  const digest = await crypto.subtle.digest('SHA-256', buf);
+  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function publish() {
+  const cfg = getCfg();
+  if (!cfg.repo || !cfg.token) {
+    // Fallback: show copy/paste dialog
+    document.getElementById('fallback-text').value = JSON.stringify(state, null, 2);
+    document.getElementById('fallback-dlg').showModal();
+    return;
+  }
+  const dlg = document.getElementById('publish-dlg');
+  const progress = document.getElementById('pub-progress');
+  const closeBtn = document.getElementById('pub-close');
+  const title = document.getElementById('pub-title');
+  title.textContent = 'Publishing...';
+  progress.textContent = '';
+  closeBtn.style.display = 'none';
+  dlg.showModal();
+  const log = (msg) => { progress.textContent += msg + '\n'; progress.scrollTop = progress.scrollHeight; };
+
+  try {
+    log('Uploading images...');
+    await uploadInlineImages({ ...cfg, branch: cfg.branch || 'main' }, log);
+
+    log('Committing site.json...');
+    const branch = cfg.branch || 'main';
+    let currentSha;
+    try {
+      const existing = await gh(`/contents/content/site.json?ref=${encodeURIComponent(branch)}`, {}, cfg);
+      currentSha = existing.sha;
+    } catch {}
+
+    const content = JSON.stringify(state, null, 2);
+    await gh(`/contents/content/site.json`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        message: 'Update site (via Playground)',
+        content: b64utf8(content),
+        branch,
+        sha: currentSha
+      })
+    }, cfg);
+
+    log('');
+    log('✅ Published! Site will update in ~30 seconds.');
+    log('');
+    log('View: https://blitzbatworks.com');
+
+    title.textContent = 'Published! 🎉';
+    closeBtn.style.display = '';
+    localStorage.removeItem(STORAGE_KEY);
+    setStatus('Published — live in ~30s', 'saved');
+
+    // Force preview to re-render with new (uploaded) image paths
+    renderEditor();
+    renderPreview();
+  } catch (err) {
+    log('');
+    log('❌ Error: ' + err.message);
+    log('');
+    log('Common fixes:');
+    log(' - Check that the GitHub token is valid');
+    log(' - Token needs "repo" scope (or Contents: read/write for fine-grained)');
+    log(' - Check repo is "owner/name" like "vsilva1026/blitzbatworks"');
+    title.textContent = 'Publish failed';
+    closeBtn.style.display = '';
+  }
+}
+
+document.getElementById('publish-btn').addEventListener('click', publish);
+document.getElementById('pub-close').addEventListener('click', () => document.getElementById('publish-dlg').close());
+
+// Settings dialog
+document.getElementById('settings-btn').addEventListener('click', () => {
+  const cfg = getCfg();
+  document.getElementById('cfg-repo').value = cfg.repo || 'vsilva1026/blitzbatworks';
+  document.getElementById('cfg-token').value = cfg.token || '';
+  document.getElementById('cfg-branch').value = cfg.branch || 'main';
+  document.getElementById('settings-dlg').showModal();
 });
-document.getElementById('dlg-close').addEventListener('click', () => document.getElementById('publish-dlg').close());
-document.getElementById('dlg-copy').addEventListener('click', async () => {
-  const t = document.getElementById('publish-text');
-  await navigator.clipboard.writeText(t.value);
-  const btn = document.getElementById('dlg-copy');
-  const orig = btn.textContent;
-  btn.textContent = 'Copied ✓';
-  setTimeout(() => btn.textContent = orig, 1500);
+document.getElementById('settings-cancel').addEventListener('click', () => document.getElementById('settings-dlg').close());
+document.getElementById('settings-clear').addEventListener('click', () => {
+  localStorage.removeItem(CFG_KEY);
+  document.getElementById('cfg-repo').value = '';
+  document.getElementById('cfg-token').value = '';
 });
-document.getElementById('dlg-download').addEventListener('click', () => {
-  const blob = new Blob([document.getElementById('publish-text').value], { type: 'application/json' });
+document.getElementById('settings-save').addEventListener('click', () => {
+  setCfg({
+    repo: document.getElementById('cfg-repo').value.trim(),
+    token: document.getElementById('cfg-token').value.trim(),
+    branch: document.getElementById('cfg-branch').value.trim() || 'main'
+  });
+  document.getElementById('settings-dlg').close();
+});
+
+// Fallback dialog (no token configured)
+document.getElementById('fb-close').addEventListener('click', () => document.getElementById('fallback-dlg').close());
+document.getElementById('fb-copy').addEventListener('click', async () => {
+  await navigator.clipboard.writeText(document.getElementById('fallback-text').value);
+  const b = document.getElementById('fb-copy'); const t = b.textContent;
+  b.textContent = 'Copied ✓'; setTimeout(() => b.textContent = t, 1500);
+});
+document.getElementById('fb-download').addEventListener('click', () => {
+  const blob = new Blob([document.getElementById('fallback-text').value], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'site.json';
   a.click();
 });
-document.getElementById('import-btn').addEventListener('click', () => {
-  document.getElementById('import-text').value = '';
-  document.getElementById('import-dlg').showModal();
-});
-document.getElementById('import-cancel').addEventListener('click', () => document.getElementById('import-dlg').close());
-document.getElementById('import-load').addEventListener('click', () => {
-  try {
-    state = JSON.parse(document.getElementById('import-text').value);
-    render();
-    document.getElementById('import-dlg').close();
-  } catch (e) {
-    alert('That doesn\'t look like valid JSON. Copy it fresh and try again.');
-  }
-});
+
 document.getElementById('export-btn').addEventListener('click', () => {
   const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
