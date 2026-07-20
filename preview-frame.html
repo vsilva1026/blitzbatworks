@@ -326,12 +326,17 @@
     </div>
   </footer>
 
+
   <script src="render.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    fetch('content/site.json?v=' + Date.now())
-      .then(r => r.json())
-      .then(data => BlitzRender.renderSite(data));
+    // Preview mode: don't auto-load JSON — parent playground renders into us.
+    // But if opened directly, fall back to loading site.json:
+    if (window === window.parent) {
+      fetch('content/site.json?v=' + Date.now())
+        .then(r => r.json())
+        .then(data => BlitzRender.renderSite(data));
+    }
   </script>
 </body>
 </html>
