@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /playground.html
+Disallow: /preview-frame.html
+Disallow: /eli-guide.html
+Disallow: /api/
+
+Sitemap: https://blitzbatworks.com/sitemap.xml

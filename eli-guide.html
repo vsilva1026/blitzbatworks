@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blitz Bat Works — Eli's Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0f2a44;
+      --navy-dark: #0a1d30;
+      --red: #d7263d;
+      --cream: #f5efe0;
+      --ink: #1a1a1a;
+      --muted: #6b6b6b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.55;
+      padding: 0;
+    }
+    h1, h2, h3, .display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.02em; line-height: 1.05; }
+
+    .page {
+      max-width: 8.5in;
+      margin: 24px auto;
+      background: white;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    /* Cover / Header */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+      color: var(--cream);
+      padding: 56px 56px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: ""; position: absolute; top: -40%; right: -20%;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(215,38,61,0.18) 0%, transparent 70%);
+    }
+    .hero-content { position: relative; }
+    .kicker {
+      color: var(--red);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-size: 68px;
+      margin-bottom: 8px;
+    }
+    .hero h1 .accent { color: var(--red); }
+    .hero .subtitle {
+      font-size: 18px;
+      opacity: 0.85;
+      max-width: 520px;
+      margin-top: 8px;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      padding: 8px 14px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      margin-top: 20px;
+    }
+
+    /* Credential card */
+    .cred-card {
+      margin: -28px 56px 40px;
+      background: white;
+      border: 3px solid var(--red);
+      border-radius: 8px;
+      padding: 24px 28px;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 8px 24px rgba(15,42,68,0.15);
+    }
+    .cred-card h3 {
+      font-size: 22px;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+    .cred-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      align-items: baseline;
+    }
+    .cred-row:last-child { border-bottom: none; }
+    .cred-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--muted);
+    }
+    .cred-value {
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 15px;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* Body sections */
+    .body {
+      padding: 0 56px 40px;
+    }
+    section {
+      margin-bottom: 36px;
+      page-break-inside: avoid;
+    }
+    .sec-label {
+      color: var(--red);
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    section h2 {
+      font-size: 36px;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+    .steps {
+      counter-reset: step;
+      list-style: none;
+    }
+    .steps li {
+      counter-increment: step;
+      padding: 12px 0 12px 44px;
+      position: relative;
+      font-size: 15px;
+    }
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue';
+      font-size: 16px;
+    }
+    .steps li strong { color: var(--navy); }
+
+    /* Button reference grid */
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .btn-card {
+      background: var(--cream);
+      border-left: 4px solid var(--red);
+      padding: 14px 18px;
+      border-radius: 4px;
+    }
+    .btn-name {
+      font-family: 'Bebas Neue';
+      font-size: 18px;
+      color: var(--navy);
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .btn-desc {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Tips */
+    .tips {
+      background: var(--cream);
+      border-radius: 6px;
+      padding: 20px 24px;
+    }
+    .tips ul { list-style: none; }
+    .tips li {
+      padding: 6px 0 6px 24px;
+      position: relative;
+      font-size: 14px;
+    }
+    .tips li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-weight: 800;
+    }
+
+    /* Footer callout */
+    .callout {
+      background: var(--navy);
+      color: var(--cream);
+      padding: 24px 28px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .callout-text {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    .callout-text strong { color: var(--red); font-family: 'Bebas Neue'; font-size: 20px; letter-spacing: 0.05em; display: block; margin-bottom: 2px; }
+
+    /* Footer */
+    .footer {
+      background: var(--navy-dark);
+      color: var(--cream);
+      padding: 20px 56px;
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.75;
+    }
+    .footer .logo {
+      font-family: 'Bebas Neue';
+      font-size: 18px;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+    .footer .logo span { color: var(--red); }
+
+    /* Print controls */
+    .print-bar {
+      max-width: 8.5in;
+      margin: 12px auto 0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    .print-bar button {
+      background: var(--navy);
+      color: var(--cream);
+      border: none;
+      padding: 10px 18px;
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .print-bar button:hover { background: var(--red); }
+
+    @media print {
+      body { background: white; }
+      .print-bar { display: none; }
+      .page { box-shadow: none; margin: 0; max-width: none; }
+      .hero { padding: 44px 40px 40px; }
+      .cred-card { margin: -24px 40px 32px; }
+      .body { padding: 0 40px 28px; }
+      .footer { padding: 16px 40px; }
+      section { margin-bottom: 24px; }
+      @page { margin: 0.4in; size: letter; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-bar">
+    <button onclick="window.print()">🖨 Save as PDF</button>
+  </div>
+
+  <div class="page">
+
+    <div class="hero">
+      <div class="hero-content">
+        <div class="kicker">Your Website Guide</div>
+        <h1>BLITZ<span class="accent"> · </span>BAT WORKS</h1>
+        <div class="subtitle">Everything Eli needs to know to run his site — no code, no accounts, no waiting.</div>
+        <div class="badge">Built for Eli</div>
+      </div>
+    </div>
+
+    <div class="cred-card">
+      <h3>YOUR ACCESS</h3>
+      <div class="cred-row">
+        <div class="cred-label">Website</div>
+        <div class="cred-value">blitzbatworks.com</div>
+      </div>
+      <div class="cred-row">
+        <div class="cred-label">Editor</div>
+        <div class="cred-value">blitzbatworks.com/playground.html</div>
+      </div>
+      <div class="cred-row">
+        <div class="cred-label">Password</div>
+        <div class="cred-value">ewilder26</div>
+      </div>
+    </div>
+
+    <div class="body">
+
+      <section>
+        <div class="sec-label">Step 1</div>
+        <h2>FIRST TIME ON A NEW DEVICE</h2>
+        <ol class="steps">
+          <li>Go to <strong>blitzbatworks.com/playground.html</strong></li>
+          <li>Click the <strong>⚙ Settings</strong> button in the left panel</li>
+          <li>Type your password (<strong>ewilder26</strong>) and check <strong>"Remember on this browser"</strong></li>
+          <li>Click <strong>Save</strong> — you're set up forever on this device</li>
+        </ol>
+      </section>
+
+      <section>
+        <div class="sec-label">Step 2</div>
+        <h2>EDIT YOUR SITE</h2>
+        <ol class="steps">
+          <li>Open the playground URL</li>
+          <li>Change anything on the left — the preview on the right updates instantly</li>
+          <li>Nothing is live yet — this is just for you to play</li>
+          <li>When you like it, click the red <strong>PUBLISH</strong> button</li>
+          <li>Wait for <strong>"Published! 🎉"</strong> — your real site updates in ~30 seconds</li>
+        </ol>
+      </section>
+
+      <section>
+        <div class="sec-label">Cheat Sheet</div>
+        <h2>WHAT EACH BUTTON DOES</h2>
+        <div class="btn-grid">
+          <div class="btn-card">
+            <div class="btn-name">PUBLISH</div>
+            <div class="btn-desc">Makes your changes live at blitzbatworks.com</div>
+          </div>
+          <div class="btn-card">
+            <div class="btn-name">SAVE DRAFT</div>
+            <div class="btn-desc">Saves work in progress (doesn't go live)</div>
+          </div>
+          <div class="btn-card">
+            <div class="btn-name">RESET</div>
+            <div class="btn-desc">Throw away changes, load the live version</div>
+          </div>
+          <div class="btn-card">
+            <div class="btn-name">⚙ SETTINGS</div>
+            <div class="btn-desc">Enter your password once per device</div>
+          </div>
+          <div class="btn-card">
+            <div class="btn-name">EXPORT</div>
+            <div class="btn-desc">Download a backup file of everything</div>
+          </div>
+          <div class="btn-card">
+            <div class="btn-name">DESKTOP / MOBILE</div>
+            <div class="btn-desc">Toggle preview to see phone view</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="sec-label">Pro Tips</div>
+        <h2>MAKE IT YOURS</h2>
+        <div class="tips">
+          <ul>
+            <li>Try different <strong>Color Themes</strong> — 16 options, whole vibe changes instantly</li>
+            <li>Drag section names in <strong>Section Order</strong> to rearrange your page</li>
+            <li>Uncheck any section to hide it entirely</li>
+            <li>Use <strong>Compact / Normal / Spacious</strong> to control how big each section is</li>
+            <li>Add photos in <strong>Gallery</strong> to show off your best builds</li>
+            <li>Every bat style can have its own photo — upload one for each</li>
+            <li>The <strong>Featured Bat</strong> section is great for a "Bat of the Week" spotlight</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <div class="callout">
+          <div class="callout-text">
+            <strong>SOMETHING BROKEN?</strong>
+            Click <b>Reset</b> to go back to what's live. If it's really broken, text <b>Tading</b>.
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="footer">
+      <div class="logo">BLITZ<span>·</span>BAT WORKS</div>
+      <div>Custom hand-taped wiffle ball bats · Built for backyard legends</div>
+    </div>
+
+  </div>
+
+</body>
+</html>
