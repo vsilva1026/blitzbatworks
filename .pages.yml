@@ -24,6 +24,16 @@ content:
             - { label: "Royal Blue & Orange", value: royal-orange }
             - { label: "Maroon & Cream", value: maroon-cream }
             - { label: "Neon Retro", value: neon-retro }
+            - { label: "Crimson & White", value: crimson-white }
+            - { label: "Ocean & Teal", value: ocean-teal }
+            - { label: "Dodger Blue & Orange", value: dodger-blue }
+            - { label: "Pistachio", value: pistachio }
+            - { label: "Hot Pink", value: hot-pink }
+            - { label: "Sunset", value: sunset }
+            - { label: "Candy Red", value: candy-red }
+            - { label: "Army Camo", value: army-camo }
+            - { label: "Ice Blue", value: ice-blue }
+            - { label: "Midnight", value: midnight }
 
       - name: hero
         label: Hero (top banner)

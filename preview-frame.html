@@ -13,19 +13,34 @@
       --primary: #0f2a44;
       --primary-dark: #0a1d30;
       --accent: #d7263d;
+      --accent-ink: #b81f33;
       --bg: #f5efe0;
       --ink: #1a1a1a;
       --muted: #6b6b6b;
       --card: #ffffff;
+      --btn-ink: #ffffff;
+      --on-dark: #f5efe0; /* text color for use on --primary / dark backgrounds */
       --heading-font: 'Bebas Neue', 'Inter', sans-serif;
       --body-font: 'Inter', system-ui, -apple-system, sans-serif;
     }
-    [data-theme="navy-red"] { --primary:#0f2a44; --primary-dark:#0a1d30; --accent:#d7263d; --bg:#f5efe0; --card:#ffffff; }
-    [data-theme="forest-gold"] { --primary:#1b3a2b; --primary-dark:#0f2318; --accent:#e0a020; --bg:#f4ecd8; --card:#ffffff; }
-    [data-theme="black-yellow"] { --primary:#111111; --primary-dark:#000000; --accent:#ffcc00; --bg:#f2f2f2; --card:#ffffff; }
-    [data-theme="royal-orange"] { --primary:#1e3a8a; --primary-dark:#152a63; --accent:#f97316; --bg:#f0f4ff; --card:#ffffff; }
-    [data-theme="maroon-cream"] { --primary:#5e1522; --primary-dark:#3d0d16; --accent:#c9a96e; --bg:#f8f1e3; --card:#ffffff; }
-    [data-theme="neon-retro"] { --primary:#1a1033; --primary-dark:#0d0820; --accent:#ff2ec4; --bg:#0d0820; --ink:#f0eaff; --muted:#a89dc7; --card:#1a1033; --heading-font:'Press Start 2P','Bebas Neue',sans-serif; }
+    /* --accent used on dark backgrounds and for button/backgrounds; --accent-ink used for small text on light backgrounds (must have good contrast on --bg / --card). */
+    [data-theme="navy-red"]      { --primary:#0f2a44; --primary-dark:#0a1d30; --accent:#d7263d; --accent-ink:#b81f33; --bg:#f5efe0; --card:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --btn-ink:#ffffff; }
+    [data-theme="forest-gold"]   { --primary:#1b3a2b; --primary-dark:#0f2318; --accent:#e0a020; --accent-ink:#8a6110; --bg:#f4ecd8; --card:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --btn-ink:#1b3a2b; }
+    [data-theme="black-yellow"]  { --primary:#111111; --primary-dark:#000000; --accent:#ffcc00; --accent-ink:#8a6c00; --bg:#f2f2f2; --card:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --btn-ink:#111111; }
+    [data-theme="royal-orange"]  { --primary:#1e3a8a; --primary-dark:#152a63; --accent:#f97316; --accent-ink:#c2410c; --bg:#f0f4ff; --card:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --btn-ink:#ffffff; }
+    [data-theme="maroon-cream"]  { --primary:#5e1522; --primary-dark:#3d0d16; --accent:#c9a96e; --accent-ink:#8a6b2c; --bg:#f8f1e3; --card:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --btn-ink:#3d0d16; }
+    [data-theme="neon-retro"]    { --primary:#1a1033; --primary-dark:#0d0820; --accent:#ff2ec4; --accent-ink:#ff2ec4; --bg:#0d0820; --card:#1a1033; --ink:#f0eaff; --muted:#a89dc7; --btn-ink:#0d0820; --on-dark:#f0eaff; --heading-font:'Press Start 2P','Bebas Neue',sans-serif; }
+    /* New themes */
+    [data-theme="crimson-white"] { --primary:#8a0f1e; --primary-dark:#5c0913; --accent:#e8b640; --accent-ink:#8a6110; --bg:#ffffff; --card:#faf7f0; --ink:#1a1a1a; --muted:#6b6b6b; --btn-ink:#8a0f1e; }
+    [data-theme="ocean-teal"]    { --primary:#0d3f4a; --primary-dark:#082830; --accent:#f0b642; --accent-ink:#8a6110; --bg:#eaf3f5; --card:#ffffff; --ink:#0f1e22; --muted:#5b7076; --btn-ink:#0d3f4a; }
+    [data-theme="dodger-blue"]   { --primary:#0a2540; --primary-dark:#061729; --accent:#ff6b1a; --accent-ink:#c2410c; --bg:#eef2f7; --card:#ffffff; --ink:#1a1a1a; --muted:#5b6270; --btn-ink:#ffffff; }
+    [data-theme="pistachio"]     { --primary:#3d5c3a; --primary-dark:#243821; --accent:#ff8c42; --accent-ink:#c2410c; --bg:#eaf1e0; --card:#ffffff; --ink:#1a1a1a; --muted:#5b6b58; --btn-ink:#ffffff; }
+    [data-theme="hot-pink"]      { --primary:#111111; --primary-dark:#000000; --accent:#ff3d8a; --accent-ink:#c2185b; --bg:#fff0f6; --card:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --btn-ink:#ffffff; }
+    [data-theme="sunset"]        { --primary:#5b1a5b; --primary-dark:#380d38; --accent:#ff9a3d; --accent-ink:#c2410c; --bg:#fff1e6; --card:#ffffff; --ink:#1f0f1f; --muted:#6b5560; --btn-ink:#ffffff; }
+    [data-theme="candy-red"]     { --primary:#c8102e; --primary-dark:#8a0b20; --accent:#0f2a44; --accent-ink:#0a1d30; --bg:#ffffff; --card:#f9f6f0; --ink:#1a1a1a; --muted:#6b6b6b; --btn-ink:#ffffff; }
+    [data-theme="army-camo"]     { --primary:#3c4a2f; --primary-dark:#242e1c; --accent:#d7522b; --accent-ink:#a63d1a; --bg:#e8e6d2; --card:#f4f2de; --ink:#1a1a1a; --muted:#5b6055; --btn-ink:#ffffff; }
+    [data-theme="ice-blue"]      { --primary:#1e2b3d; --primary-dark:#0f1a29; --accent:#e91e63; --accent-ink:#a01248; --bg:#e6f1fa; --card:#ffffff; --ink:#0f1a29; --muted:#5b6270; --btn-ink:#ffffff; }
+    [data-theme="midnight"]      { --primary:#0a0a0a; --primary-dark:#000000; --accent:#3ddc84; --accent-ink:#3ddc84; --bg:#0f0f0f; --card:#1a1a1a; --ink:#f0f0f0; --muted:#8a8a8a; --btn-ink:#000000; --on-dark:#f0f0f0; }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -48,7 +63,7 @@
     nav {
       position: sticky; top: 0; z-index: 10;
       background: var(--primary);
-      color: var(--bg);
+      color: var(--on-dark);
       padding: 16px 0;
       border-bottom: 3px solid var(--accent);
     }
@@ -71,12 +86,11 @@
     /* Section backgrounds */
     section[data-bg="light"] { background: var(--card); color: var(--ink); }
     section[data-bg="light"] h2 { color: var(--primary); }
-    section[data-bg="dark"] { background: var(--primary); color: var(--bg); }
-    section[data-bg="dark"] h2, section[data-bg="dark"] h3 { color: var(--bg); }
+    section[data-bg="dark"] { background: var(--primary); color: var(--on-dark); }
+    section[data-bg="dark"] h2, section[data-bg="dark"] h3 { color: var(--on-dark); }
     [data-theme="neon-retro"] section[data-bg="dark"] h2 { color: var(--accent); }
-    section[data-bg="accent"] { background: var(--accent); color: #fff; }
-    section[data-bg="accent"] h2, section[data-bg="accent"] h3 { color: #fff; }
-    section[data-bg="accent"] .section-label { color: #fff; opacity: 0.9; }
+    section[data-bg="accent"] { background: var(--accent); color: var(--btn-ink); }
+    section[data-bg="accent"] h2, section[data-bg="accent"] h3 { color: var(--btn-ink); }
     section[data-bg="accent"] .btn { background: var(--primary); color: #fff; }
 
     /* Alignment */
@@ -87,7 +101,7 @@
 
     .hero {
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-      color: var(--bg);
+      color: var(--on-dark);
       padding: 96px 0 120px;
       position: relative;
       overflow: hidden;
@@ -120,6 +134,7 @@
       text-transform: uppercase;
       margin-bottom: 20px;
     }
+    /* kicker sits on --primary hero, so --accent (bright) is fine */
     .hero h1 {
       font-size: clamp(48px, 8vw, 96px);
       margin-bottom: 20px;
@@ -134,7 +149,7 @@
     .btn {
       display: inline-block;
       background: var(--accent);
-      color: #fff;
+      color: var(--btn-ink);
       padding: 16px 32px;
       text-decoration: none;
       font-weight: 800;
@@ -145,17 +160,20 @@
       transition: transform 0.15s ease, filter 0.15s ease;
     }
     .btn:hover { filter: brightness(0.9); transform: translateY(-2px); }
-    .btn.secondary { background: transparent; border: 2px solid var(--bg); margin-left: 12px; }
-    .btn.secondary:hover { background: var(--bg); color: var(--primary); }
+    .btn.secondary { background: transparent; border: 2px solid var(--on-dark); color: var(--on-dark); margin-left: 12px; }
+    .btn.secondary:hover { background: var(--on-dark); color: var(--primary); }
 
     .section-label {
-      color: var(--accent);
+      color: var(--accent-ink);
       font-weight: 800;
       font-size: 13px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       margin-bottom: 12px;
     }
+    /* On dark/accent backgrounds, use the bright variant */
+    section[data-bg="dark"] .section-label { color: var(--accent); }
+    section[data-bg="accent"] .section-label { color: var(--btn-ink); opacity: 0.85; }
     section h2 {
       font-size: clamp(40px, 6vw, 64px);
       color: var(--primary);
@@ -170,18 +188,19 @@
     @media (max-width: 800px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
     .rich-body p { font-size: 18px; margin-bottom: 20px; }
     .rich-body ul, .rich-body ol { margin: 0 0 20px 24px; font-size: 18px; }
-    .rich-body a { color: var(--accent); text-decoration: underline; }
+    .rich-body a { color: var(--accent-ink); text-decoration: underline; }
+    section[data-bg="dark"] .rich-body a, section[data-bg="accent"] .rich-body a { color: var(--accent); }
     .rich-body strong { font-weight: 800; }
     .about-card {
       background: var(--primary);
-      color: var(--bg);
+      color: var(--on-dark);
       padding: 40px;
       border-radius: 8px;
       border-left: 6px solid var(--accent);
     }
     section[data-bg="dark"] .about-card { background: var(--primary-dark); }
     section[data-bg="accent"] .about-card { background: var(--primary); }
-    .about-card h3 { font-size: 32px; margin-bottom: 20px; color: var(--bg); }
+    .about-card h3 { font-size: 32px; margin-bottom: 20px; color: var(--on-dark); }
     [data-theme="neon-retro"] .about-card h3 { font-size: 16px; }
     .stat-row { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
     .stat .num { font-family: var(--heading-font); font-size: 44px; color: var(--accent); line-height: 1; }
@@ -193,7 +212,7 @@
     .featured-photo { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; border: 4px solid var(--accent); background: rgba(0,0,0,0.05); }
     .featured-inner h3 { font-size: 42px; color: var(--primary); margin-bottom: 16px; }
     [data-theme="neon-retro"] .featured-inner h3 { font-size: 20px; color: var(--accent); }
-    section[data-bg="dark"] .featured-inner h3, section[data-bg="accent"] .featured-inner h3 { color: var(--bg); }
+    section[data-bg="dark"] .featured-inner h3, section[data-bg="accent"] .featured-inner h3 { color: var(--on-dark); }
     .featured-desc { font-size: 18px; opacity: 0.85; }
     .featured-desc p { margin-bottom: 12px; }
 
@@ -210,7 +229,7 @@
       overflow: hidden;
       display: flex; flex-direction: column;
     }
-    section[data-bg="dark"] .product-card { background: var(--primary-dark); color: var(--bg); }
+    section[data-bg="dark"] .product-card { background: var(--primary-dark); color: var(--on-dark); }
     section[data-bg="accent"] .product-card { background: #fff; color: var(--ink); }
     .product-card .photo { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: rgba(0,0,0,0.05); }
     .product-card .body { padding: 24px 32px 32px; }
@@ -220,7 +239,7 @@
     [data-theme="neon-retro"] .product-card h3 { font-size: 14px; color: var(--accent); }
     section[data-bg="dark"] .product-card h3 { color: var(--accent); }
     .product-card .rich-body p { color: var(--muted); font-size: 15px; margin-bottom: 8px; }
-    section[data-bg="dark"] .product-card .rich-body p { color: var(--bg); opacity: 0.8; }
+    section[data-bg="dark"] .product-card .rich-body p { color: var(--on-dark); opacity: 0.8; }
 
     .gallery-grid {
       display: grid;
@@ -257,8 +276,9 @@
     }
     .testi-card blockquote p { margin-bottom: 8px; }
     .testi-card .who {
-      font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 800;
+      font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); font-weight: 800;
     }
+    section[data-bg="dark"] .testi-card .who { color: var(--accent); }
 
     .contact-wrap { max-width: 560px; }
     section[data-align="center"] .contact-wrap { margin: 0 auto; }
@@ -285,14 +305,14 @@
 
     footer {
       background: var(--primary-dark);
-      color: var(--bg);
+      color: var(--on-dark);
       padding: 32px 0;
       text-align: center;
       font-size: 14px;
     }
     footer .logo { font-size: 20px; margin-bottom: 12px; display: block; }
     .social-row { margin: 12px 0; display: flex; justify-content: center; gap: 20px; }
-    .social-row a { color: var(--bg); text-decoration: none; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 800; opacity: 0.8; }
+    .social-row a { color: var(--on-dark); text-decoration: none; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 800; opacity: 0.8; }
     .social-row a:hover { color: var(--accent); opacity: 1; }
     .footer-tag { opacity: 0.6; }
   </style>
@@ -326,12 +346,9 @@
     </div>
   </footer>
 
-
   <script src="render.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    // Preview mode: don't auto-load JSON — parent playground renders into us.
-    // But if opened directly, fall back to loading site.json:
     if (window === window.parent) {
       fetch('content/site.json?v=' + Date.now())
         .then(r => r.json())
