@@ -86,6 +86,16 @@
     /* Section backgrounds */
     section[data-bg="light"] { background: var(--card); color: var(--ink); }
     section[data-bg="light"] h2 { color: var(--primary); }
+    /* Dark themes: use --ink instead of --primary for H2s on "light" sections,
+       since their --primary is near-black and would disappear on the dark card. */
+    [data-theme="midnight"] section[data-bg="light"] h2,
+    [data-theme="neon-retro"] section[data-bg="light"] h2 { color: var(--ink); }
+    [data-theme="midnight"] section[data-bg="light"] h3,
+    [data-theme="neon-retro"] section[data-bg="light"] h3 { color: var(--ink); }
+    [data-theme="midnight"] .product-card h3,
+    [data-theme="neon-retro"] .product-card h3 { color: var(--accent); }
+    [data-theme="midnight"] .featured-inner h3,
+    [data-theme="neon-retro"] .featured-inner h3 { color: var(--accent); }
     section[data-bg="dark"] { background: var(--primary); color: var(--on-dark); }
     section[data-bg="dark"] h2, section[data-bg="dark"] h3 { color: var(--on-dark); }
     [data-theme="neon-retro"] section[data-bg="dark"] h2 { color: var(--accent); }
