@@ -10,45 +10,108 @@ content:
     type: file
     format: json
     fields:
+      - name: theme
+        label: Color Theme
+        description: Pick a color scheme for the whole site
+        type: select
+        options:
+          values:
+            - { label: "Navy & Red (default)", value: navy-red }
+            - { label: "Forest & Gold", value: forest-gold }
+            - { label: "Black & Yellow", value: black-yellow }
+            - { label: "Royal Blue & Orange", value: royal-orange }
+            - { label: "Maroon & Cream", value: maroon-cream }
+            - { label: "Neon Retro", value: neon-retro }
+
       - name: hero
-        label: Hero Section (top of page)
+        label: Hero (top of page)
         type: object
         fields:
           - { name: kicker, label: Small tagline above headline, type: string }
-          - { name: headline_top, label: Headline (first line), type: string }
-          - { name: headline_bottom, label: Headline (second line, in red), type: string }
+          - { name: headline_top, label: Headline (line 1), type: string }
+          - { name: headline_bottom, label: Headline (line 2 — accent color), type: string }
           - { name: subtext, label: Subtext under headline, type: text }
           - { name: button_primary, label: Main button label, type: string }
           - { name: button_secondary, label: Second button label, type: string }
+          - { name: background_image, label: Optional background photo, type: image }
+
       - name: about
         label: About Section
         type: object
         fields:
           - { name: heading, label: Heading, type: string }
-          - name: paragraphs
-            label: Paragraphs
-            type: string
-            list: true
+          - { name: body, label: About text, type: rich-text }
           - { name: card_heading, label: Side card heading, type: string }
           - { name: card_text, label: Side card text, type: text }
           - { name: stat_1_number, label: Stat 1 number, type: string }
           - { name: stat_1_label, label: Stat 1 label, type: string }
           - { name: stat_2_number, label: Stat 2 number, type: string }
           - { name: stat_2_label, label: Stat 2 label, type: string }
-      - { name: products_heading, label: Products section heading, type: string }
+
+      - name: featured
+        label: Featured Bat (bat of the week)
+        description: Turn this on to show a spotlight bat above the product lineup
+        type: object
+        fields:
+          - { name: enabled, label: Show featured bat?, type: boolean }
+          - { name: heading, label: Section heading, type: string }
+          - { name: name, label: Bat name, type: string }
+          - { name: description, label: Description, type: text }
+          - { name: photo, label: Photo, type: image }
+
+      - { name: products_heading, label: Product section heading, type: string }
+
       - name: products
         label: Bat Styles
+        description: The different tape styles Eli offers
         type: object
         list: true
         fields:
           - { name: name, label: Style name, type: string }
           - { name: description, label: Description, type: text }
+          - { name: photo, label: Photo (optional), type: image }
+
+      - name: gallery
+        label: Photo Gallery — Past Builds
+        type: object
+        fields:
+          - { name: enabled, label: Show gallery?, type: boolean }
+          - { name: heading, label: Heading, type: string }
+          - { name: subtext, label: Subtext, type: text }
+          - name: images
+            label: Photos
+            type: image
+            list: true
+
+      - name: testimonials
+        label: Testimonials
+        type: object
+        fields:
+          - { name: enabled, label: Show testimonials?, type: boolean }
+          - { name: heading, label: Section heading, type: string }
+          - name: items
+            label: Reviews
+            type: object
+            list: true
+            fields:
+              - { name: quote, label: Quote, type: text }
+              - { name: author, label: Who said it, type: string }
+
       - name: contact
         label: Contact Section
         type: object
         fields:
           - { name: heading, label: Heading, type: string }
           - { name: subtext, label: Subtext, type: text }
-          - { name: form_endpoint, label: "Formspree endpoint URL (advanced — leave alone)", type: string }
+          - { name: form_endpoint, label: "Formspree URL (advanced — don't change)", type: string }
           - { name: button_label, label: Submit button label, type: string }
+
+      - name: social
+        label: Social Links (leave blank to hide)
+        type: object
+        fields:
+          - { name: instagram, label: Instagram URL, type: string }
+          - { name: tiktok, label: TikTok URL, type: string }
+          - { name: email, label: Contact email, type: string }
+
       - { name: footer_text, label: Footer tagline, type: string }
