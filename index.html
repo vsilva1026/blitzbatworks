@@ -34,7 +34,6 @@
     a { color: inherit; }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-    /* Nav */
     nav {
       position: sticky; top: 0; z-index: 10;
       background: var(--navy);
@@ -50,7 +49,6 @@
     .nav-links a:hover { color: var(--red); }
     @media (max-width: 600px) { .nav-links { display: none; } }
 
-    /* Hero */
     .hero {
       background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
       color: var(--cream);
@@ -104,7 +102,6 @@
     .btn.secondary { background: transparent; border: 2px solid var(--cream); margin-left: 12px; }
     .btn.secondary:hover { background: var(--cream); color: var(--navy); }
 
-    /* Sections */
     section { padding: 96px 0; }
     .section-label {
       color: var(--red);
@@ -120,7 +117,6 @@
       margin-bottom: 32px;
     }
 
-    /* About */
     .about-grid {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -145,7 +141,6 @@
     .stat .num { font-family: 'Bebas Neue'; font-size: 44px; color: var(--red); line-height: 1; }
     .stat .lbl { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.8; }
 
-    /* Products */
     .products { background: white; }
     .product-grid {
       display: grid;
@@ -166,7 +161,6 @@
     }
     .product-card p { color: var(--muted); font-size: 15px; }
 
-    /* Contact */
     .contact { background: var(--navy); color: var(--cream); }
     .contact h2 { color: var(--cream); }
     .contact-wrap { max-width: 560px; }
@@ -187,7 +181,6 @@
     textarea { resize: vertical; min-height: 120px; }
     form .btn { border: none; cursor: pointer; margin-top: 8px; justify-self: start; }
 
-    /* Footer */
     footer {
       background: var(--navy-dark);
       color: var(--cream);
@@ -214,11 +207,11 @@
 
   <header class="hero">
     <div class="container hero-content">
-      <span class="kicker">Hand-Taped · Made to Order</span>
-      <h1>Custom Wiffle Bats.<br><span class="accent">Backyard Legends.</span></h1>
-      <p>One-of-a-kind wiffle ball bats, wrapped and taped by hand. Pick your colors, pick your style — every bat is built to your specs.</p>
-      <a href="#contact" class="btn">Order Yours</a>
-      <a href="#about" class="btn secondary">Our Story</a>
+      <span class="kicker" data-c="hero.kicker"></span>
+      <h1><span data-c="hero.headline_top"></span><br><span class="accent" data-c="hero.headline_bottom"></span></h1>
+      <p data-c="hero.subtext"></p>
+      <a href="#contact" class="btn" data-c="hero.button_primary"></a>
+      <a href="#about" class="btn secondary" data-c="hero.button_secondary"></a>
     </div>
   </header>
 
@@ -227,22 +220,20 @@
       <div class="about-grid">
         <div>
           <div class="section-label">About</div>
-          <h2>Built in the Backyard.</h2>
-          <p>Blitz Bat Works started the way every great backyard idea does — with a beat-up wiffle bat, a roll of tape, and a summer afternoon.</p>
-          <p>What began as customizing bats for pickup games turned into something more: bats built to order, each one wrapped and finished by hand. No two are the same. Every bat gets its own color scheme, its own grip, its own personality.</p>
-          <p>Whether you're squaring up for a home run derby, a family cookout tournament, or you just want a bat that actually looks like <em>yours</em> — we've got you covered.</p>
+          <h2 data-c="about.heading"></h2>
+          <div id="about-paragraphs"></div>
         </div>
         <div class="about-card">
-          <h3>What Makes Us Different</h3>
-          <p>Every bat is hand-taped from start to finish. You pick the colors, patterns, and grip style — we build it. No mass production, no cookie-cutter designs.</p>
+          <h3 data-c="about.card_heading"></h3>
+          <p data-c="about.card_text"></p>
           <div class="stat-row">
             <div class="stat">
-              <div class="num">100%</div>
-              <div class="lbl">Handmade</div>
+              <div class="num" data-c="about.stat_1_number"></div>
+              <div class="lbl" data-c="about.stat_1_label"></div>
             </div>
             <div class="stat">
-              <div class="num">1/1</div>
-              <div class="lbl">Every Design</div>
+              <div class="num" data-c="about.stat_2_number"></div>
+              <div class="lbl" data-c="about.stat_2_label"></div>
             </div>
           </div>
         </div>
@@ -253,34 +244,17 @@
   <section id="bats" class="products">
     <div class="container">
       <div class="section-label">The Lineup</div>
-      <h2>Pick Your Style.</h2>
-      <div class="product-grid">
-        <div class="product-card">
-          <h3>Classic Wrap</h3>
-          <p>Clean two-color tape job with a solid grip. The everyday bat for backyard ballers.</p>
-        </div>
-        <div class="product-card">
-          <h3>Spiral Series</h3>
-          <p>Multi-color spirals down the barrel. Loud, fast, and impossible to miss.</p>
-        </div>
-        <div class="product-card">
-          <h3>Team Colors</h3>
-          <p>Rep your team, your school, or your squad. Send us your colors — we'll match them.</p>
-        </div>
-        <div class="product-card">
-          <h3>Fully Custom</h3>
-          <p>Got a design in mind? Send it over. If we can tape it, we'll build it.</p>
-        </div>
-      </div>
+      <h2 data-c="products_heading"></h2>
+      <div class="product-grid" id="product-grid"></div>
     </div>
   </section>
 
   <section id="contact" class="contact">
     <div class="container contact-wrap">
       <div class="section-label">Contact</div>
-      <h2>Order a Bat.</h2>
-      <p>Tell us what you're looking for — colors, style, quantity — and we'll get back to you with pricing and turnaround time.</p>
-      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <h2 data-c="contact.heading"></h2>
+      <p data-c="contact.subtext"></p>
+      <form id="contact-form" method="POST">
         <div>
           <label for="name">Your Name</label>
           <input type="text" id="name" name="name" required />
@@ -293,7 +267,7 @@
           <label for="message">What kind of bat do you want?</label>
           <textarea id="message" name="message" placeholder="Colors, style, quantity, anything else..." required></textarea>
         </div>
-        <button type="submit" class="btn">Send It</button>
+        <button type="submit" class="btn" data-c="contact.button_label"></button>
       </form>
     </div>
   </section>
@@ -301,12 +275,45 @@
   <footer>
     <div class="container">
       <span class="logo">BLITZ<span style="color:var(--red)">·</span>BAT WORKS</span>
-      <div>© <span id="year"></span> Blitz Bat Works. All bats hand-taped with love.</div>
+      <div>© <span id="year"></span> Blitz Bat Works. <span data-c="footer_text"></span></div>
     </div>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    function getPath(obj, path) {
+      return path.split('.').reduce((o, k) => (o ? o[k] : undefined), obj);
+    }
+
+    fetch('content/site.json?v=' + Date.now())
+      .then(r => r.json())
+      .then(data => {
+        document.querySelectorAll('[data-c]').forEach(el => {
+          const val = getPath(data, el.getAttribute('data-c'));
+          if (val !== undefined) el.innerHTML = val;
+        });
+
+        const aboutContainer = document.getElementById('about-paragraphs');
+        (data.about.paragraphs || []).forEach(p => {
+          const el = document.createElement('p');
+          el.innerHTML = p;
+          aboutContainer.appendChild(el);
+        });
+
+        const grid = document.getElementById('product-grid');
+        (data.products || []).forEach(prod => {
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          card.innerHTML = `<h3>${prod.name}</h3><p>${prod.description}</p>`;
+          grid.appendChild(card);
+        });
+
+        const form = document.getElementById('contact-form');
+        if (data.contact && data.contact.form_endpoint) {
+          form.action = data.contact.form_endpoint;
+        }
+      });
   </script>
 </body>
 </html>

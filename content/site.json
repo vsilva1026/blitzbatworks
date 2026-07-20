@@ -1,0 +1,50 @@
+{
+  "hero": {
+    "kicker": "Hand-Taped · Made to Order",
+    "headline_top": "Custom Wiffle Bats.",
+    "headline_bottom": "Backyard Legends.",
+    "subtext": "One-of-a-kind wiffle ball bats, wrapped and taped by hand. Pick your colors, pick your style — every bat is built to your specs.",
+    "button_primary": "Order Yours",
+    "button_secondary": "Our Story"
+  },
+  "about": {
+    "heading": "Built in the Backyard.",
+    "paragraphs": [
+      "Blitz Bat Works started the way every great backyard idea does — with a beat-up wiffle bat, a roll of tape, and a summer afternoon.",
+      "What began as customizing bats for pickup games turned into something more: bats built to order, each one wrapped and finished by hand. No two are the same. Every bat gets its own color scheme, its own grip, its own personality.",
+      "Whether you're squaring up for a home run derby, a family cookout tournament, or you just want a bat that actually looks like <em>yours</em> — we've got you covered."
+    ],
+    "card_heading": "What Makes Us Different",
+    "card_text": "Every bat is hand-taped from start to finish. You pick the colors, patterns, and grip style — we build it. No mass production, no cookie-cutter designs.",
+    "stat_1_number": "100%",
+    "stat_1_label": "Handmade",
+    "stat_2_number": "1/1",
+    "stat_2_label": "Every Design"
+  },
+  "products_heading": "Pick Your Style.",
+  "products": [
+    {
+      "name": "Classic Wrap",
+      "description": "Clean two-color tape job with a solid grip. The everyday bat for backyard ballers."
+    },
+    {
+      "name": "Spiral Series",
+      "description": "Multi-color spirals down the barrel. Loud, fast, and impossible to miss."
+    },
+    {
+      "name": "Team Colors",
+      "description": "Rep your team, your school, or your squad. Send us your colors — we'll match them."
+    },
+    {
+      "name": "Fully Custom",
+      "description": "Got a design in mind? Send it over. If we can tape it, we'll build it."
+    }
+  ],
+  "contact": {
+    "heading": "Order a Bat.",
+    "subtext": "Tell us what you're looking for — colors, style, quantity — and we'll get back to you with pricing and turnaround time.",
+    "form_endpoint": "https://formspree.io/f/YOUR_FORM_ID",
+    "button_label": "Send It"
+  },
+  "footer_text": "All bats hand-taped with love."
+}

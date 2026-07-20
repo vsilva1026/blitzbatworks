@@ -1,0 +1,54 @@
+media:
+  - name: images
+    input: images
+    output: /images
+
+content:
+  - name: site
+    label: Site Content
+    path: content/site.json
+    type: file
+    format: json
+    fields:
+      - name: hero
+        label: Hero Section (top of page)
+        type: object
+        fields:
+          - { name: kicker, label: Small tagline above headline, type: string }
+          - { name: headline_top, label: Headline (first line), type: string }
+          - { name: headline_bottom, label: Headline (second line, in red), type: string }
+          - { name: subtext, label: Subtext under headline, type: text }
+          - { name: button_primary, label: Main button label, type: string }
+          - { name: button_secondary, label: Second button label, type: string }
+      - name: about
+        label: About Section
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - name: paragraphs
+            label: Paragraphs
+            type: string
+            list: true
+          - { name: card_heading, label: Side card heading, type: string }
+          - { name: card_text, label: Side card text, type: text }
+          - { name: stat_1_number, label: Stat 1 number, type: string }
+          - { name: stat_1_label, label: Stat 1 label, type: string }
+          - { name: stat_2_number, label: Stat 2 number, type: string }
+          - { name: stat_2_label, label: Stat 2 label, type: string }
+      - { name: products_heading, label: Products section heading, type: string }
+      - name: products
+        label: Bat Styles
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Style name, type: string }
+          - { name: description, label: Description, type: text }
+      - name: contact
+        label: Contact Section
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: subtext, label: Subtext, type: text }
+          - { name: form_endpoint, label: "Formspree endpoint URL (advanced — leave alone)", type: string }
+          - { name: button_label, label: Submit button label, type: string }
+      - { name: footer_text, label: Footer tagline, type: string }
