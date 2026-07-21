@@ -132,12 +132,18 @@
     const hero = doc.getElementById('hero');
     if (hero) {
       hero.classList.remove('has-bg');
-      hero.style.removeProperty('--hero-bg');
+      let heroStyleTag = doc.getElementById('hero-bg-style');
+      if (!heroStyleTag) {
+        heroStyleTag = doc.createElement('style');
+        heroStyleTag.id = 'hero-bg-style';
+        doc.head.appendChild(heroStyleTag);
+      }
+      heroStyleTag.textContent = '';
       if (data.hero) {
         hero.setAttribute('data-align', data.hero.alignment || 'left');
         hero.setAttribute('data-spacing', data.hero.spacing || 'spacious');
         if (data.hero.background_image) {
-          hero.style.setProperty('--hero-bg', `url("${normalizeMedia(data.hero.background_image)}")`);
+          heroStyleTag.textContent = `#hero { --hero-bg: url("${normalizeMedia(data.hero.background_image)}"); }`;
           hero.classList.add('has-bg');
         }
       }
