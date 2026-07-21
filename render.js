@@ -7,6 +7,7 @@
     if (!path) return '';
     if (/^https?:\/\//.test(path)) return path;
     if (path.startsWith('data:')) return path;
+    if (path.startsWith('blob:')) return path;
     if (path.startsWith('/')) return path;
     return '/' + path.replace(/^\.?\//, '');
   }
