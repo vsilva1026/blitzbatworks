@@ -397,10 +397,33 @@ function render() {
   renderPreview();
 }
 
+const _blobUrlCache = new Map();
+function _blobUrlFor(dataUrl) {
+  if (_blobUrlCache.has(dataUrl)) return _blobUrlCache.get(dataUrl);
+  const m = /^data:([^;]+);base64,(.+)$/.exec(dataUrl);
+  if (!m) return dataUrl;
+  const bin = atob(m[2]);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  const url = URL.createObjectURL(new Blob([arr], { type: m[1] }));
+  _blobUrlCache.set(dataUrl, url);
+  return url;
+}
+function _stateForPreview(obj) {
+  if (obj == null) return obj;
+  if (typeof obj === 'string') return obj.startsWith('data:image/') ? _blobUrlFor(obj) : obj;
+  if (Array.isArray(obj)) return obj.map(_stateForPreview);
+  if (typeof obj === 'object') {
+    const out = {};
+    for (const k of Object.keys(obj)) out[k] = _stateForPreview(obj[k]);
+    return out;
+  }
+  return obj;
+}
 function renderPreview() {
   const frame = document.getElementById('preview-frame');
   if (frame.contentDocument && frame.contentDocument.body && frame.contentWindow.BlitzRender) {
-    frame.contentWindow.BlitzRender.renderSite(state, frame.contentDocument);
+    frame.contentWindow.BlitzRender.renderSite(_stateForPreview(state), frame.contentDocument);
   }
 }
 
