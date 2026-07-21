@@ -160,9 +160,9 @@
     .hero[data-align="right"] .hero-content { text-align: right; margin-left: auto; }
     .hero.has-bg::after {
       content: ""; position: absolute; inset: 0;
-      background-image: var(--hero-bg);
+      background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), var(--hero-bg);
       background-size: cover; background-position: center;
-      opacity: 0.25; z-index: 0;
+      z-index: 0;
     }
     .hero::before {
       content: ""; position: absolute; top: -50%; right: -20%;
