@@ -1,5 +1,5 @@
 {
-  "theme": "navy-red",
+  "theme": "midnight",
   "hero": {
     "kicker": "Hand-Taped · Made to Order",
     "headline_top": "Custom Blitz Bats For",
@@ -12,9 +12,6 @@
     "spacing": "spacious"
   },
   "section_order": [
-    {
-      "section": "about"
-    },
     {
       "section": "featured"
     },
@@ -61,7 +58,7 @@
     "items": [
       {
         "name": "Classic Wrap",
-        "description": "Clean two-color tape job with a solid grip. The everyday bat for backyard ballers.",
+        "description": "Pick your bat, pick your style. Anything that fits just right for you.",
         "photo": ""
       },
       {
